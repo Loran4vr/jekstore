@@ -1,0 +1,39 @@
+# 🔐 YOUR ANONYMOUS CRYPTO WALLET
+
+## BITCOIN (BTC)
+Address: [GENERATE YOUR OWN - see below]
+
+## ETHEREUM (ETH)  
+Address: [GENERATE YOUR OWN - see below]
+
+---
+
+# HOW TO GET FREE WALLET ADDRESS
+
+## Option 1: Use This Site (2 min)
+1. Go to: https://www.bitaddress.org
+2. Click "Single Wallet"
+3. Move your mouse around randomly
+4. Or type random letters in the textbox
+5. Save the Address shown (starts with 1... for BTC, 0x... for ETH)
+
+## Option 2: Use MetaMask (Ethereum)
+1. Go to: https://metamask.io
+2. Click "Create New Wallet"
+3. NO EMAIL - just create password
+4. Save your wallet address
+
+## Option 3: Use Trust Wallet
+1. Download Trust Wallet app
+2. Create wallet (no email needed)
+3. Copy your BTC and ETH addresses
+
+---
+
+# WHAT TO DO NEXT
+
+1. Generate your wallet address
+2. Replace [YOUR ADDRESS] in all product files
+3. Start selling!
+
+The products are ready in /products/ folder.

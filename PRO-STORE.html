@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Digital Products | Instant Delivery</title>
+    <meta name="description" content="Professional digital templates and guides. Instant delivery after payment.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0d1117;
+            --secondary: #161b22;
+            --accent: #58a6ff;
+            --gold: #f0b429;
+            --text: #c9d1d9;
+            --muted: #8b949e;
+            --border: #30363d;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border);
+            background: var(--secondary);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tagline { color: var(--muted); font-size: 0.95rem; }
+        
+        /* Hero */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(ellipse at top, #1a2332 0%, var(--primary) 70%);
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero h1 span {
+            color: var(--gold);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #1f6feb);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
+        }
+        
+        /* Payment Section */
+        .payment-section {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 1px solid var(--border);
+        }
+        .payment-section h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--gold);
+        }
+        .btc-address {
+            background: var(--primary);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .btc-address code {
+            color: var(--gold);
+            word-break: break-all;
+            font-size: 0.95rem;
+        }
+        .qr-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-container img {
+            max-width: 180px;
+            border-radius: 10px;
+            border: 3px solid var(--border);
+        }
+        .instructions {
+            background: rgba(88, 166, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        /* Products Grid */
+        .products-section { padding: 60px 0; }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .product-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .product-card .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .product-card .price span {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: normal;
+        }
+        
+        /* Bundle */
+        .bundle-section {
+            background: linear-gradient(135deg, #1a2332, #0d1117);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 50px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        .bundle-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .bundle-section .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 20px 0;
+        }
+        .bundle-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            list-style: none;
+        }
+        .bundle-list li {
+            background: var(--secondary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        footer p { color: var(--muted); margin: 10px 0; }
+        .contact-btn {
+            display: inline-block;
+            background: var(--border);
+            color: var(--text);
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background 0.2s;
+        }
+        .contact-btn:hover { background: var(--accent); color: white; }
+        
+        @media (max-width: 600px) {
+            .hero { padding: 50px 0; }
+            .payment-section, .bundle-section { padding: 25px; }
+            .bundle-section .price { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">🚀 DigitalStore</div>
+            <div class="tagline">Premium Digital Products • Instant Delivery</div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Professional Templates & <span>Digital Guides</span></h1>
+            <p>High-quality digital products to boost your productivity. Pay with Bitcoin, receive instantly.</p>
+            <a href="#products" class="cta-btn">Browse Products</a>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section class="payment-section" id="payment">
+            <h2>💰 How to Pay</h2>
+            <p style="text-align: center; color: var(--muted);">Send Bitcoin, receive files within 1 hour</p>
+            
+            <div class="btc-address">
+                <p style="color: var(--muted); margin-bottom: 10px;">Bitcoin Address:</p>
+                <code>1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </div>
+            
+            <div class="qr-container">
+                <img src="https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ" alt="Bitcoin QR Code">
+            </div>
+            
+            <div class="instructions">
+                <ol>
+                    <li>Send the amount in <strong>Bitcoin (BTC)</strong> to the address above</li>
+                    <li>Copy your <strong>transaction hash</strong> (TX ID)</li>
+                    <li>DM me the transaction hash</li>
+                    <li>Receive your product files within <strong>1 hour</strong></li>
+                </ol>
+            </div>
+        </section>
+        
+        <section class="products-section" id="products">
+            <h2 class="section-title">🔥 Popular Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <h3>📅 Notion Life Planner</h3>
+                    <p>Complete productivity system: daily planner, goals, habits, finance tracker</p>
+                    <div class="price">$19 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>🤖 500+ AI Prompts Pack</h3>
+                    <p>Copy-paste prompts for ChatGPT, Claude, Gemini. Writing, business, coding & more</p>
+                    <div class="price">$14 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>📧 100 Email Templates</h3>
+                    <p>Professional cold outreach, follow-ups, sales & customer service templates</p>
+                    <div class="price">$12 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>📊 Excel Budget Tracker</h3>
+                    <p>Track income, expenses, savings goals with auto-calculating formulas</p>
+                    <div class="price">$10 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>📝 Resume Templates</h3>
+                    <p>10 modern resume + cover letter templates. ATS-optimized formats</p>
+                    <div class="price">$10 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>💼 Business Plan Template</h3>
+                    <p>Complete business plan with financial projections, market analysis & more</p>
+                    <div class="price">$15 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>📱 Social Media Calendar</h3>
+                    <p>90-day content planner, hashtag guides, engagement templates</p>
+                    <div class="price">$8 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>✍️ Copywriting Swipe File</h3>
+                    <p>100+ high-converting headlines, subject lines, CTAs & sales templates</p>
+                    <div class="price">$11 <span>USD</span></div>
+                </div>
+                
+                <div class="product-card">
+                    <h3>🎯 Goal Setting Workbook</h3>
+                    <p>SMART goals template, 90-day challenge, habit tracker & reflection prompts</p>
+                    <div class="price">$9 <span>USD</span></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="bundle-section">
+            <h2>💎 Ultimate Bundle</h2>
+            <p style="color: var(--muted);">Everything you need to succeed</p>
+            <div class="price">$25 <span style="font-size: 1rem; color: var(--muted);">Save $73</span></div>
+            <ul class="bundle-list">
+                <li>✅ Notion Life Planner</li>
+                <li>✅ 500+ AI Prompts</li>
+                <li>✅ 100 Email Templates</li>
+                <li>✅ Excel Budget Tracker</li>
+                <li>✅ Resume Templates</li>
+                <li>✅ Business Plan</li>
+                <li>✅ Social Media Calendar</li>
+                <li>✅ Copywriting Swipe File</li>
+                <li>✅ Goal Setting Workbook</li>
+            </ul>
+            <a href="#payment" class="cta-btn">Get the Bundle - $25</a>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>💳 Secure Bitcoin Payment</p>
+            <p>⚡ Instant Digital Delivery</p>
+            <p>🔒 Anonymous Transactions Welcome</p>
+            <a href="#" class="contact-btn">Contact Us</a>
+        </div>
+    </footer>
+</body>
+</html>

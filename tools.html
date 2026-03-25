@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Tools - JekTools</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        .nav { display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .nav a { padding: 10px 20px; background: var(--secondary); border: 1px solid var(--border); border-radius: 6px; color: var(--text); text-decoration: none; }
+        .nav a:hover { border-color: var(--accent); }
+        h1 { color: var(--gold); margin: 30px 0 15px; }
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+        .tool-card { background: var(--secondary); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+        .tool-card:hover { border-color: var(--accent); }
+        .tool-card a { text-decoration: none; color: inherit; display: block; }
+        .tool-icon { font-size: 1.5rem; }
+        .tool-name { font-weight: bold; color: white; margin: 8px 0 5px; }
+        .tool-desc { font-size: 0.8rem; color: var(--muted); }
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🛠️ JekTools - All Utilities</div>
+            <div class="nav">
+                <a href="/">🏠 Home</a>
+                <a href="/store.html">🛒 Store</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h1>🔧 Text & Code Tools</h1>
+        <div class="tools-grid">
+            <a href="https://jsonformatter.org/" target="_blank" class="tool-card"><div class="tool-icon">📄</div><div class="tool-name">JSON Formatter</div><div class="tool-desc">Format JSON</div></a>
+            <a href="https://www.base64encode.org/" target="_blank" class="tool-card"><div class="tool-icon">🔐</div><div class="tool-name">Base64</div><div class="tool-desc">Encode/Decode</div></a>
+            <a href="https://regex101.com/" target="_blank" class="tool-card"><div class="tool-icon">🔍</div><div class="tool-name">Regex</div><div class="tool-desc">Test patterns</div></a>
+            <a href="https://www.diffchecker.com/" target="_blank" class="tool-card"><div class="tool-icon">⚖️</div><div class="tool-name">Diff</div><div class="tool-desc">Compare text</div></a>
+            <a href="https://hashgenerator.me/" target="_blank" class="tool-card"><div class="tool-icon">#️⃣</div><div class="tool-name">Hash</div><div class="tool-desc">MD5, SHA</div></a>
+            <a href="https://www.urlencoder.org/" target="_blank" class="tool-card"><div class="tool-icon">🔗</div><div class="tool-name">URL Encode</div><div class="tool-desc">Encode URLs</div></a>
+        </div>
+        
+        <h1>⏰ Scheduler Tools</h1>
+        <div class="tools-grid">
+            <a href="https://crontab.guru/" target="_blank" class="tool-card"><div class="tool-icon">⏰</div><div class="tool-name">Cron</div><div class="tool-desc">Generate schedules</div></a>
+            <a href="https://www.timestampconvert.com/" target="_blank" class="tool-card"><div class="tool-icon">🕐</div><div class="tool-name">Timestamp</div><div class="tool-desc">Convert times</div></a>
+            <a href="https://www.timeanddate.com/" target="_blank" class="tool-card"><div class="tool-icon">📅</div><div class="tool-name">Time & Date</div><div class="tool-desc">World clock</div></a>
+        </div>
+        
+        <h1>💻 Developer Tools</h1>
+        <div class="tools-grid">
+            <a href="https://codepen.io/" target="_blank" class="tool-card"><div class="tool-icon">💻</div><div class="tool-name">CodePen</div><div class="tool-desc">HTML/CSS/JS</div></a>
+            <a href="https://jsfiddle.net/" target="_blank" class="tool-card"><div class="tool-icon">🎵</div><div class="tool-name">JSFiddle</div><div class="tool-desc">JS testing</div></a>
+            <a href="https://Stackblitz.com/" target="_blank" class="tool-card"><div class="tool-icon">⚡</div><div class="tool-name">StackBlitz</div><div class="tool-desc">Full-stack IDE</div></a>
+            <a href="https://gitignore.io/" target="_blank" class="tool-card"><div class="tool-icon">📁</div><div class="tool-name">gitignore</div><div class="tool-desc">Generate .gitignore</div></a>
+            <a href="https://packagejs.com/" target="_blank" class="tool-card"><div class="tool-icon">📦</div><div class="tool-name">PackageJS</div><div class="tool-desc">NPM search</div></a>
+            <a href="https://carbon.now.sh/" target="_blank" class="tool-card"><div class="tool-icon">💎</div><div class="tool-name">Carbon</div><div class="tool-desc">Code screenshots</div></a>
+        </div>
+        
+        <h1>🔗 URL & Links</h1>
+        <div class="tools-grid">
+            <a href="https://tinyurl.com/" target="_blank" class="tool-card"><div class="tool-icon">✂️</div><div class="tool-name">TinyURL</div><div class="tool-desc">Shorten URLs</div></a>
+            <a href="https://bitly.com/" target="_blank" class="tool-card"><div class="tool-icon">📏</div><div class="tool-name">Bitly</div><div class="tool-desc">URL shortener</div></a>
+            <a href="https://www.checkme.in/" target="_blank" class="tool-card"><div class="tool-icon">🔎</div><div class="tool-name">WHOIS</div><div class="tool-desc">Domain lookup</div></a>
+        </div>
+        
+        <h1>📊 Data & Files</h1>
+        <div class="tools-grid">
+            <a href="https://csvjson.com/" target="_blank" class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">CSV/JSON</div><div class="tool-desc">Convert formats</div></a>
+            <a href="https://www.worldtimeapi.org/" target="_blank" class="tool-card"><div class="tool-icon">🌐</div><div class="tool-name">WorldTimeAPI</div><div class="tool-desc">Time zones</div></a>
+            <a href="https://ngrok.com/" target="_blank" class="tool-card"><div class="tool-icon">🌍</div><div class="tool-name">ngrok</div><div class="tool-desc">Local tunnel</div></a>
+        </div>
+        
+        <h1>🎨 Design & Media</h1>
+        <div class="tools-grid">
+            <a href="https://canva.com/" target="_blank" class="tool-card"><div class="tool-icon">🎨</div><div class="tool-name">Canva</div><div class="tool-desc">Design online</div></a>
+            <a href="https://excalidraw.com/" target="_blank" class="tool-card"><div class="tool-icon">✏️</div><div class="tool-name">Excalidraw</div><div class="tool-desc">Whiteboard</div></a>
+            <a href="https://remove.bg/" target="_blank" class="tool-card"><div class="tool-icon">🖼️</div><div class="tool-name">Remove BG</div><div class="tool-desc">Remove backgrounds</div></a>
+            <a href="https://compresspng.com/" target="_blank" class="tool-card"><div class="tool-icon">📉</div><div class="tool-name">Compress</div><div class="tool-desc">Optimize images</div></a>
+        </div>
+        
+        <h1>🔐 Security & Privacy</h1>
+        <div class="tools-grid">
+            <a href="https://haveibeenpwned.com/" target="_blank" class="tool-card"><div class="tool-icon">🛡️</div><div class="tool-name">HaveIBeenPwned</div><div class="tool-desc">Check breaches</div></a>
+            <a href="https://passwordsgenerator.net/" target="_blank" class="tool-card"><div class="tool-icon">🔑</div><div class="tool-name">Password Gen</div><div class="tool-desc">Strong passwords</div></a>
+            <a href="https://2fa.guide/" target="_blank" class="tool-card"><div class="tool-icon">🔐</div><div class="tool-name">2FA Guide</div><div class="tool-desc">2FA setup</div></a>
+        </div>
+        
+        <div style="margin:40px 0;padding:30px;background:var(--secondary);border-radius:12px;text-align:center;">
+            <h2 style="color:var(--gold);margin-bottom:15px;">🛒 Need Digital Products?</h2>
+            <p style="color:var(--muted);margin-bottom:20px;">Premium templates, prompts, and tools for your business.</p>
+            <a href="/store.html" style="display:inline-block;background:var(--green);color:white;padding:14px 30px;border-radius:8px;text-decoration:none;font-weight:bold;">Visit Store →</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>🛒 <a href="/store.html">Digital Store</a> | 🏠 <a href="/">Home</a></p>
+        <p style="margin-top:10px;">JekTools © 2026</p>
+    </footer>
+</body>
+</html>

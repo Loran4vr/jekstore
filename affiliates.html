@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn with JekStore - Affiliate Program</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; color: var(--gold); }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        h2 { color: var(--gold); margin-bottom: 15px; }
+        
+        .promo-box { background: linear-gradient(135deg, var(--secondary), #1a2332); border: 2px solid var(--green); border-radius: 16px; padding: 30px; text-align: center; margin-bottom: 25px; }
+        .promo-box h2 { color: var(--green); font-size: 1.8rem; }
+        .promo-box .highlight { color: var(--gold); font-size: 1.2rem; font-weight: bold; margin: 15px 0; }
+        
+        .steps { display: grid; gap: 15px; margin: 20px 0; }
+        .step { display: flex; align-items: center; gap: 15px; padding: 15px; background: var(--primary); border-radius: 10px; }
+        .step-num { width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        .tools-list { display: grid; gap: 10px; margin: 20px 0; }
+        .tool-row { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--primary); border-radius: 10px; }
+        .tool-name { font-weight: bold; }
+        .tool-commission { color: var(--green); font-weight: bold; }
+        
+        .link-box { background: var(--primary); padding: 15px; border-radius: 10px; margin: 20px 0; }
+        .link-box code { color: var(--accent); word-break: break-all; font-size: 0.85rem; }
+        
+        .earn-amount { font-size: 2rem; color: var(--gold); font-weight: bold; text-align: center; margin: 20px 0; }
+        
+        .nav { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .nav a { color: var(--accent); text-decoration: none; }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">💰 Earn with JekStore</div>
+            <div class="nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="store.html">🛒 Store</a>
+                <a href="track.html">📦 Track</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="promo-box">
+            <h2>🚀 Earn 30% Commission!</h2>
+            <p>Share our products and earn when people buy!</p>
+            <div class="highlight">Share link → They buy → You get paid in Bitcoin!</div>
+        </div>
+        
+        <div class="card">
+            <h2>📋 How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div>Share your unique referral link (any purchase = your commission)</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div>Friend makes a purchase ($3-5)</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div>We verify the payment on blockchain</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div>You receive Bitcoin to your wallet!</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>💵 Commission Rates</h2>
+            <div class="earn-amount">30% on every sale!</div>
+            <p style="text-align:center;color:var(--muted);">$0.90-$1.50 per sale</p>
+            
+            <div class="tools-list">
+                <div class="tool-row">
+                    <span>Starter Pack ($5)</span>
+                    <span class="tool-commission">$1.50 BTC</span>
+                </div>
+                <div class="tool-row">
+                    <span>Individual Products ($3)</span>
+                    <span class="tool-commission">$0.90 BTC</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🔗 Your Share Link</h2>
+            <p style="color:var(--muted);margin-bottom:15px;">Anyone who visits using your link and makes a purchase gives you commission!</p>
+            
+            <div class="link-box">
+                <code>https://jekstore.netlify.app/store.html?ref=YOUR_ID</code>
+            </div>
+            
+            <p style="color:var(--muted);font-size:0.85rem;margin-top:15px;">
+                Replace YOUR_ID with your identifier. You can use your Tracker ID or create your own!
+            </p>
+        </div>
+        
+        <div class="card">
+            <h2>📢 Where to Share</h2>
+            <p style="color:var(--muted);margin-bottom:15px;">Share anywhere you can:</p>
+            <ul style="margin-left:20px;color:var(--muted);">
+                <li>WhatsApp/Telegram groups</li>
+                <li>Reddit (r/digitalgoods, r/redditbay)</li>
+                <li>Facebook groups</li>
+                <li>Twitter/X</li>
+                <li>Your website or blog</li>
+                <li>Discord servers</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>📊 Track Your Earnings</h2>
+            <p>All blockchain transactions are public! Commission payments will be visible on the blockchain.</p>
+            <p style="margin-top:15px;">
+                🔗 <a href="https://mempool.space/address/1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ" target="_blank" style="color:var(--accent);">View all transactions</a>
+            </p>
+        </div>
+        
+        <div class="card" style="text-align:center;">
+            <h2>🚀 Start Earning Now!</h2>
+            <p style="color:var(--muted);">Share the store - it's that simple.</p>
+            <a href="store.html" style="display:inline-block;background:var(--green);color:white;padding:15px 30px;border-radius:10px;text-decoration:none;font-weight:bold;margin-top:15px;">Visit Store →</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p><a href="index.html">← Back to Home</a></p>
+    </footer>
+</body>
+</html>

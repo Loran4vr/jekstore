@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Payment Status</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; margin: 20px 0; }
+        .stat { padding: 15px; background: var(--primary); border-radius: 10px; }
+        .stat-num { font-size: 1.5rem; color: var(--gold); font-weight: bold; }
+        .stat-label { font-size: 0.75rem; color: var(--muted); }
+        
+        .section-title { color: var(--gold); margin-bottom: 15px; font-size: 1.1rem; }
+        
+        .tx-list { list-style: none; }
+        .tx-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--primary); border-radius: 8px; margin-bottom: 10px; }
+        .tx-time { color: var(--muted); font-size: 0.8rem; }
+        .tx-amount { color: var(--green); font-weight: bold; }
+        
+        .live-indicator { display: inline-flex; align-items: center; gap: 8px; background: rgba(63,185,80,0.1); padding: 8px 15px; border-radius: 20px; }
+        .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .address-info { background: var(--primary); padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .address-info code { color: var(--gold); font-family: monospace; word-break: break-all; }
+        
+        footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🚀 JekStore</div>
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>Live Blockchain Monitoring</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-num" id="totalReceived">0 BTC</div>
+                    <div class="stat-label">Total Received</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="totalSales">0</div>
+                    <div class="stat-label">Verified Sales</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num" id="lastUpdate">--</div>
+                    <div class="stat-label">Last Activity</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3 class="section-title">📊 Recent Transactions</h3>
+            <div id="txHistory">
+                <p style="color:var(--muted);text-align:center;padding:20px;">No transactions yet. Be the first!</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3 class="section-title">🔗 Blockchain Status</h3>
+            <div class="address-info">
+                <p style="color:var(--muted);margin-bottom:10px;">Receiving Address:</p>
+                <code>1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </div>
+            <p style="color:var(--muted);font-size:0.85rem;">
+                All transactions are publicly visible on the Bitcoin blockchain.
+                This page shows real-time payment activity.
+            </p>
+            <p style="margin-top:15px;">
+                🔗 <a href="https://mempool.space/address/1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ" target="_blank" style="color:var(--accent);">View on mempool.space</a>
+            </p>
+        </div>
+        
+        <div class="card">
+            <h3 class="section-title">💰 Products Available</h3>
+            <div style="display:grid;gap:10px;">
+                <div style="display:flex;justify-content:space-between;padding:10px;background:var(--primary);border-radius:8px;">
+                    <span>Ultimate Bundle</span>
+                    <span style="color:var(--gold);">$25 / 65,800 sats</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:10px;background:var(--primary);border-radius:8px;">
+                    <span>Notion Life Planner</span>
+                    <span style="color:var(--gold);">$19 / 50,000 sats</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:10px;background:var(--primary);border-radius:8px;">
+                    <span>500+ AI Prompts</span>
+                    <span style="color:var(--gold);">$14 / 36,800 sats</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p><a href="/" style="color:var(--accent);">← Back to Store</a></p>
+        <p style="margin-top:10px;">Transparent • Anonymous • Secure</p>
+    </footer>
+    
+    <script>
+        const BTC_ADDRESS = '1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ';
+        
+        async function updateStats() {
+            try {
+                const resp = await fetch('https://mempool.space/api/address/' + BTC_ADDRESS);
+                const data = await resp.json();
+                
+                const totalBTC = (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) / 100000000;
+                document.getElementById('totalReceived').textContent = totalBTC.toFixed(4) + ' BTC';
+                
+                const txCount = data.chain_stats.funded_txo_count;
+                document.getElementById('totalSales').textContent = txCount;
+                
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+                
+                // Get recent transactions
+                const txResp = await fetch('https://mempool.space/api/address/' + BTC_ADDRESS + '/txs');
+                const txs = await txResp.json();
+                
+                if (txs.length > 0) {
+                    const txList = document.getElementById('txHistory');
+                    txList.innerHTML = '<ul class="tx-list">' + txs.slice(0,5).map(tx => {
+                        const amount = tx.vout.find(v => v.scriptpubkey_address === BTC_ADDRESS)?.value || 0;
+                        const sats = (amount / 100000000).toFixed(4);
+                        const time = new Date(tx.status.block_time * 1000).toLocaleString();
+                        return `<li class="tx-item">
+                            <span class="tx-time">${time}</span>
+                            <span class="tx-amount">${sats} BTC</span>
+                        </li>`;
+                    }).join('') + '</ul>';
+                }
+            } catch(e) {
+                console.log('Error:', e.message);
+            }
+        }
+        
+        updateStats();
+        setInterval(updateStats, 30000); // Update every 30s
+    </script>
+</body>
+</html>

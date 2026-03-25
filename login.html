@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Login / Register</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 400px; margin: 50px auto; padding: 20px; }
+        
+        header { text-align: center; margin-bottom: 30px; }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+        
+        .tab-buttons { display: flex; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 12px; background: var(--primary); border: 1px solid var(--border); color: var(--muted); cursor: pointer; }
+        .tab-btn:first-child { border-radius: 8px 0 0 8px; }
+        .tab-btn:last-child { border-radius: 0 8px 8px 0; }
+        .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--muted); font-size: 0.9rem; }
+        .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--primary); color: var(--text); }
+        .form-group input:focus { outline: none; border-color: var(--accent); }
+        
+        .btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn:hover { background: #2ea043; }
+        
+        .error { color: #f85149; font-size: 0.9rem; margin-top: 10px; text-align: center; }
+        
+        .note { font-size: 0.8rem; color: var(--muted); margin-top: 15px; text-align: center; }
+        .note a { color: var(--accent); }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🚀 JekStore</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('login')">Login</button>
+                <button class="tab-btn" onclick="showTab('register')">Register</button>
+            </div>
+            
+            <!-- Login Tab -->
+            <div id="tab-login">
+                <div class="form-group">
+                    <label>Email or Username</label>
+                    <input type="text" id="loginEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="btn" onclick="login()">Login</button>
+                <p class="error" id="loginError"></p>
+            </div>
+            
+            <!-- Register Tab -->
+            <div id="tab-register" style="display:none;">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="regUsername" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Create password">
+                </div>
+                <button class="btn" onclick="register()">Create Account</button>
+                <p class="error" id="regError"></p>
+                <p class="note">Optional: Create account to track orders</p>
+            </div>
+        </div>
+        
+        <p class="note">
+            <a href="store.html">Continue without login (anonymous)</a>
+        </p>
+        
+        <p class="note">
+            <a href="track.html">📦 Track Order</a> • <a href="admin.html">Admin</a>
+        </p>
+    </div>
+    
+    <footer>
+        <p>🔒 Secure Login • No Data Stored</p>
+    </footer>
+    
+    <script>
+        function showTab(tab) {
+            document.getElementById('tab-login').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('tab-register').style.display = tab === 'register' ? 'block' : 'none';
+            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', ['login', 'register'][i] === tab);
+            });
+        }
+        
+        function register() {
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            
+            if (!username || !email || !password) {
+                document.getElementById('regError').textContent = 'All fields required';
+                return;
+            }
+            
+            const user = { username, email, password, orders: [] };
+            localStorage.setItem('jekstore_user_' + email, JSON.stringify(user));
+            localStorage.setItem('jekstore_current_user', email);
+            
+            alert('Account created! You can now track your orders.');
+            window.location.href = 'track.html';
+        }
+        
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const userData = localStorage.getItem('jekstore_user_' + email);
+            if (!userData) {
+                document.getElementById('loginError').textContent = 'User not found';
+                return;
+            }
+            
+            const user = JSON.parse(userData);
+            if (user.password !== password) {
+                document.getElementById('loginError').textContent = 'Wrong password';
+                return;
+            }
+            
+            localStorage.setItem('jekstore_current_user', email);
+            window.location.href = 'track.html';
+        }
+    </script>
+</body>
+</html>

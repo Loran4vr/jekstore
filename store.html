@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Premium Digital Products</title>
+    <meta name="description" content="Premium digital products. Pay with Bitcoin. Instant delivery. Anonymous.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 25px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2.5rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        
+        .nav { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .nav a { padding: 8px 15px; background: var(--secondary); border: 1px solid var(--border); border-radius: 6px; color: var(--text); text-decoration: none; font-size: 0.85rem; }
+        
+        .security { display: flex; justify-content: center; gap: 15px; margin: 15px 0; font-size: 0.75rem; color: var(--muted); }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        h2 { color: var(--gold); margin-bottom: 20px; }
+        
+        .product-option { display: flex; align-items: center; padding: 15px; background: var(--primary); border: 2px solid var(--border); border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+        .product-option:hover { border-color: var(--accent); }
+        .product-option.selected { border-color: var(--green); background: rgba(63,185,80,0.1); }
+        .product-icon { font-size: 1.8rem; margin-right: 12px; }
+        .product-info { flex: 1; }
+        .product-name { font-weight: bold; color: white; font-size: 1rem; }
+        .product-desc { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+        .product-price { font-size: 1.2rem; color: var(--gold); font-weight: bold; }
+        .selected .check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; margin-left: 10px; }
+        .selected .check::after { content: "✓"; color: var(--green); }
+        
+        .btn { width: 100%; padding: 16px; background: var(--green); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #2ea043; }
+        
+        .btc-amount { background: var(--primary); padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; }
+        .btc-amount .amount { font-size: 1.8rem; color: var(--gold); font-weight: bold; }
+        .btc-amount .usd { font-size: 0.85rem; color: var(--muted); }
+        
+        .qr { text-align: center; margin: 15px 0; }
+        .qr img { max-width: 160px; border-radius: 10px; border: 2px solid var(--border); }
+        
+        .address { background: var(--primary); padding: 12px; border-radius: 8px; word-break: break-all; font-family: monospace; color: var(--gold); font-size: 0.75rem; text-align: center; }
+        
+        .steps { background: rgba(88,166,255,0.1); padding: 15px; border-radius: 8px; font-size: 0.85rem; }
+        .steps ol { margin-left: 18px; }
+        .steps li { margin: 6px 0; }
+        
+        .input { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: var(--primary); color: var(--text); font-size: 0.9rem; font-family: monospace; margin-bottom: 15px; box-sizing: border-box; }
+        .input:focus { outline: none; border-color: var(--accent); }
+        
+        .tracker-box { background: var(--primary); padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; border: 2px solid var(--gold); }
+        .tracker-id { font-size: 1.4rem; color: var(--accent); font-family: monospace; font-weight: bold; letter-spacing: 3px; }
+        .tracker-note { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+        
+        .result { padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; }
+        .result.success { background: rgba(63,185,80,0.1); border: 1px solid var(--green); }
+        .result.error { background: rgba(248,81,73,0.1); border: 1px solid #f85149; }
+        
+        .download-btn { display: block; background: var(--green); color: white; padding: 16px; border-radius: 10px; text-align: center; text-decoration: none; font-weight: bold; font-size: 1.1rem; }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🚀 JekStore</div>
+            <div class="nav">
+                <a href="index.html">🏠 Home</a>
+                <a href="store.html">Store</a>
+                <a href="track.html">📦 Track</a>
+            </div>
+            <div class="security">
+                <span>🔒 Anonymous</span>
+                <span>💳 Bitcoin</span>
+                <span>⚡ Instant</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Product Selection -->
+        <div class="card" id="productCard">
+            <h2>🛒 Select Product</h2>
+            
+            <div class="product-option" onclick="selectProduct(this, 'bundle')">
+                <div class="product-icon">💎</div>
+                <div class="product-info">
+                    <div class="product-name">STARTER PACK <span style="background:var(--gold);color:var(--primary);padding:2px 6px;border-radius:4px;font-size:0.65rem;margin-left:8px;">BEST VALUE</span></div>
+                    <div class="product-desc">All 5 products - Notion, Prompts, Resume, Email, Webmaster!</div>
+                </div>
+                <div class="product-price">$5</div>
+                <div class="check"></div>
+            </div>
+            
+            <div style="margin:10px 0;padding:10px;background:var(--primary);border-radius:8px;font-size:0.75rem;color:var(--muted);">
+                📦 Includes: Notion Planner + ChatGPT Prompts + Resume Templates + Email Templates + Webmaster Toolkit
+            </div>
+            
+            <div class="product-option" onclick="selectProduct(this, 'notion')">
+                <div class="product-icon">📅</div>
+                <div class="product-info">
+                    <div class="product-name">Notion Life Planner</div>
+                    <div class="product-desc">Complete productivity system - 50+ templates</div>
+                </div>
+                <div class="product-price">$3</div>
+                <div class="check"></div>
+            </div>
+            
+            <div class="product-option" onclick="selectProduct(this, 'ai-prompts')">
+                <div class="product-icon">🤖</div>
+                <div class="product-info">
+                    <div class="product-name">ChatGPT Prompt Cheatsheet</div>
+                    <div class="product-desc">50+ tested prompts - Business, Writing, Coding</div>
+                </div>
+                <div class="product-price">$3</div>
+                <div class="check"></div>
+            </div>
+            
+            <div class="product-option" onclick="selectProduct(this, 'resume')">
+                <div class="product-icon">📝</div>
+                <div class="product-info">
+                    <div class="product-name">Resume Templates</div>
+                    <div class="product-desc">5 modern resumes + cover letter</div>
+                </div>
+                <div class="product-price">$3</div>
+                <div class="check"></div>
+            </div>
+            
+            <div class="product-option" onclick="selectProduct(this, 'email')">
+                <div class="product-icon">📧</div>
+                <div class="product-info">
+                    <div class="product-name">Email Templates</div>
+                    <div class="product-desc">20 copy-paste templates - Cold outreach, Business</div>
+                </div>
+                <div class="product-price">$3</div>
+                <div class="check"></div>
+            </div>
+            
+            <div class="product-option" onclick="selectProduct(this, 'webmaster')">
+                <div class="product-icon">🌐</div>
+                <div class="product-info">
+                    <div class="product-name">Webmaster Toolkit</div>
+                    <div class="product-desc">Complete launch checklist + SEO + Analytics</div>
+                </div>
+                <div class="product-price">$3</div>
+                <div class="check"></div>
+            </div>
+            
+            <button class="btn" onclick="generateOrder()">Continue to Payment →</button>
+        </div>
+        
+        <!-- Payment -->
+        <div class="card" id="paymentCard" style="display:none;">
+            <h2>💰 Pay with Bitcoin</h2>
+            
+            <div class="btc-amount">
+                <div class="amount" id="btcDisplay">-- BTC</div>
+                <div class="usd" id="usdDisplay">~$-- USD</div>
+            </div>
+            
+            <div class="qr">
+                <img id="qrCode" src="" alt="Bitcoin QR">
+            </div>
+            
+            <div class="address" id="btcAddress"></div>
+            
+            <div class="steps">
+                <strong>How to pay:</strong>
+                <ol>
+                    <li>Send exactly <strong id="exactAmount"></strong> BTC</li>
+                    <li>Wait for confirmation (10-30 min)</li>
+                    <li>Enter your TX ID below</li>
+                    <li>Get Tracker ID for download!</li>
+                </ol>
+            </div>
+            
+            <input type="text" class="input" id="txId" placeholder="Your Transaction ID (TX ID from wallet)">
+            
+            <button class="btn" onclick="verifyPayment()" id="verifyBtn">🔍 Verify Payment</button>
+            
+            <button class="btn" onclick="backToProducts()" style="background:var(--secondary);border:1px solid var(--border);margin-top:10px;">← Back</button>
+        </div>
+        
+        <!-- Success with Tracker ID -->
+        <div class="card" id="successCard" style="display:none;">
+            <div class="result success">
+                <h3>✅ Payment Confirmed!</h3>
+            </div>
+            
+            <div class="tracker-box">
+                <div style="color:var(--muted);margin-bottom:10px;">YOUR TRACKER ID</div>
+                <div class="tracker-id" id="trackerId">JK-XXXXXXXX</div>
+                <div class="tracker-note">Save this ID to download your product later!</div>
+            </div>
+            
+            <a href="#" class="download-btn" id="downloadLink">⬇️ Download Now</a>
+            
+            <p style="text-align:center;margin-top:15px;color:var(--muted);font-size:0.85rem;">
+                Or use Tracker ID at: jekstore.netlify.app/track.html
+            </p>
+            
+            <button class="btn" onclick="reset()" style="background:var(--secondary);border:1px solid var(--border);margin-top:15px;">Buy Another</button>
+        </div>
+        
+        <!-- Error -->
+        <div class="card" id="errorCard" style="display:none;">
+            <div class="result error">
+                <h3 id="errorTitle">❌ Verification Failed</h3>
+                <p id="errorMessage">Please check and try again.</p>
+            </div>
+            <button class="btn" onclick="backToPayment()">Try Again</button>
+        </div>
+        
+        <div class="note">
+            🔒 No account required. No personal data. Anonymous!
+        </div>
+    </div>
+    
+    <footer>
+        <p><a href="track.html" style="color:var(--accent);">📦 Track Order</a></p>
+    </footer>
+    
+    <script>
+        const BTC_ADDRESS = '1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ';
+        
+        const PRODUCTS = {
+            'bundle': { name: 'Starter Pack (All 5)', priceUSD: 5, satoshis: 13200 },
+            'notion': { name: 'Notion Life Planner', priceUSD: 3, satoshis: 7900 },
+            'ai-prompts': { name: 'ChatGPT Prompt Cheatsheet', priceUSD: 3, satoshis: 7900 },
+            'resume': { name: 'Resume Templates (5)', priceUSD: 3, satoshis: 7900 },
+            'email': { name: 'Email Templates (20)', priceUSD: 3, satoshis: 7900 },
+            'webmaster': { name: 'Webmaster Toolkit', priceUSD: 3, satoshis: 7900 }
+        };
+        
+        const DOWNLOADS = {
+            'bundle': 'products/bundle-all.txt',
+            'notion': 'products/notion-planner.txt',
+            'ai-prompts': 'products/ai-prompts.txt',
+            'email': 'products/email-templates.txt',
+            'resume': 'products/resume-templates.txt',
+            'webmaster': 'products/webmaster.txt'
+        };
+        
+        let selectedProduct = null;
+        
+        function generateTrackerId() {
+            // Generate unique tracker: JK-XXXXXX (6 random chars)
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = 'JK-';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+        
+        function selectProduct(el, productId) {
+            document.querySelectorAll('.product-option').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedProduct = productId;
+        }
+        
+        async function generateOrder() {
+            if (!selectedProduct) { alert('Please select a product'); return; }
+            
+            const product = PRODUCTS[selectedProduct];
+            const btcPrice = await fetch('https://mempool.space/api/v1/prices').then(r=>r.json()).then(d=>d.USD).catch(()=>65000);
+            const btcAmount = product.satoshis / 100000000;
+            
+            document.getElementById('btcDisplay').textContent = btcAmount.toFixed(8) + ' BTC';
+            document.getElementById('usdDisplay').textContent = '(~' + (btcAmount * btcPrice).toFixed(2) + ' USD)';
+            document.getElementById('exactAmount').textContent = btcAmount.toFixed(8);
+            document.getElementById('btcAddress').textContent = BTC_ADDRESS;
+            
+            const qrUrl = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=${BTC_ADDRESS}&amount=${btcAmount}`;
+            document.getElementById('qrCode').src = qrUrl;
+            
+            document.getElementById('productCard').style.display = 'none';
+            document.getElementById('paymentCard').style.display = 'block';
+        }
+        
+        function backToProducts() {
+            document.getElementById('paymentCard').style.display = 'none';
+            document.getElementById('productCard').style.display = 'block';
+        }
+        
+        async function verifyPayment() {
+            const txId = document.getElementById('txId').value.trim();
+            if (!txId || txId.length < 10) { 
+                showError('Please enter a valid TX ID'); 
+                return; 
+            }
+            
+            const btn = document.getElementById('verifyBtn');
+            btn.textContent = 'Verifying...';
+            btn.disabled = true;
+            
+            const product = PRODUCTS[selectedProduct];
+            const required = product.satoshis;
+            
+            try {
+                const resp = await fetch('https://mempool.space/api/tx/' + txId);
+                if (!resp.ok) { throw new Error('TX not found'); }
+                
+                const tx = await resp.json();
+                let total = 0;
+                for (const out of tx.vout) {
+                    if (out.scriptpubkey_address === BTC_ADDRESS) total += out.value;
+                }
+                
+                if (total >= required) {
+                    // Generate tracker ID
+                    const trackerId = generateTrackerId();
+                    
+                    // Save order to localStorage
+                    const order = {
+                        trackerId: trackerId,
+                        product: selectedProduct,
+                        productName: product.name,
+                        satoshis: required,
+                        txId: txId,
+                        status: 'paid',
+                        downloadUrl: DOWNLOADS[selectedProduct],
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('jekstore_order_' + trackerId, JSON.stringify(order));
+                    
+                    // Show success
+                    document.getElementById('paymentCard').style.display = 'none';
+                    document.getElementById('successCard').style.display = 'block';
+                    document.getElementById('trackerId').textContent = trackerId;
+                    document.getElementById('downloadLink').href = DOWNLOADS[selectedProduct];
+                } else {
+                    throw new Error('Amount too low');
+                }
+            } catch(e) {
+                showError(e.message || 'Verification failed');
+            }
+            
+            btn.textContent = '🔍 Verify Payment';
+            btn.disabled = false;
+        }
+        
+        function showError(msg) {
+            document.getElementById('paymentCard').style.display = 'none';
+            document.getElementById('errorCard').style.display = 'block';
+            document.getElementById('errorMessage').textContent = msg;
+        }
+        
+        function backToPayment() {
+            document.getElementById('errorCard').style.display = 'none';
+            document.getElementById('paymentCard').style.display = 'block';
+        }
+        
+        function reset() {
+            selectedProduct = null;
+            document.querySelectorAll('.product-option').forEach(p => p.classList.remove('selected'));
+            document.getElementById('txId').value = '';
+            document.getElementById('successCard').style.display = 'none';
+            document.getElementById('productCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertise on JekTools - Reach Developers</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 40px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h1 { color: var(--gold); margin: 30px 0 20px; }
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+        .pricing { display: flex; gap: 15px; flex-wrap: wrap; margin: 20px 0; }
+        .price-box { flex: 1; min-width: 150px; background: var(--primary); border: 2px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+        .price-box.featured { border-color: var(--gold); }
+        .price { font-size: 2rem; color: var(--gold); font-weight: bold; }
+        .period { color: var(--muted); font-size: 0.9rem; }
+        .features { text-align: left; margin: 15px 0; }
+        .features li { margin: 8px 0; color: var(--muted); }
+        .btn { display: block; width: 100%; padding: 15px; background: var(--green); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; text-decoration: none; text-align: center; margin-top: 15px; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--primary); color: var(--text); }
+        .contact-form textarea { height: 100px; }
+        footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">📢 Advertise on JekTools</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h1>Reach 1000s of Developers!</h1>
+            <p style="color:var(--muted);">Our free tools attract developers daily. Get your product or service in front of them!</p>
+            
+            <div class="pricing">
+                <div class="price-box">
+                    <div class="price">$9</div>
+                    <div class="period">per month</div>
+                    <ul class="features">
+                        <li>✓ Banner on homepage</li>
+                        <li>✓ Tool page placement</li>
+                        <li>✓ 5,000 impressions</li>
+                    </ul>
+                    <a href="#contact" class="btn">Get Started</a>
+                </div>
+                
+                <div class="price-box featured">
+                    <div class="price">$19</div>
+                    <div class="period">per month</div>
+                    <ul class="features">
+                        <li>✓ All basic features</li>
+                        <li>✓ Featured placement</li>
+                        <li>✓ Priority positioning</li>
+                        <li>✓ 15,000 impressions</li>
+                    </ul>
+                    <a href="#contact" class="btn">Most Popular</a>
+                </div>
+                
+                <div class="price-box">
+                    <div class="price">$49</div>
+                    <div class="period">per month</div>
+                    <ul class="features">
+                        <li>✓ Everything included</li>
+                        <li>✓ Store page banner</li>
+                        <li>✓ Newsletter mention</li>
+                        <li>✓ Unlimited impressions</li>
+                    </ul>
+                    <a href="#contact" class="btn">Enterprise</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" id="contact">
+            <h2>📧 Contact for Ads</h2>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name / Company">
+                <input type="email" placeholder="Email Address">
+                <input type="text" placeholder="Website URL (if applicable)">
+                <textarea placeholder="Tell us about your product and desired ad placement..."></textarea>
+                <button type="submit" class="btn">Send Inquiry</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>📊 Traffic Stats</h2>
+            <p style="color:var(--muted);">Our users search for tools like:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin:15px 0;">
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">JSON Formatter</span>
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">Regex Tester</span>
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">Hash Generator</span>
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">Cron Generator</span>
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">Timestamp</span>
+                <span style="background:var(--primary);padding:8px 12px;border-radius:6px;font-size:0.85rem;">Base64</span>
+            </div>
+            <p style="color:var(--muted);font-size:0.85rem;">Average user: Developer, 25-45 years old, interested in tools, SaaS, courses, and services.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p><a href="index.html" style="color:var(--accent);">← Back to Tools</a></p>
+        <p style="margin-top:10px;">Advertise © 2026 JekTools</p>
+    </footer>
+</body>
+</html>

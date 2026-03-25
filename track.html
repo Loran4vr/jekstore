@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Track Your Order</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        
+        h2 { color: var(--gold); margin-bottom: 15px; }
+        
+        .product-option { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--primary); border: 2px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; }
+        .product-option:hover { border-color: var(--accent); }
+        .product-option.selected { border-color: var(--green); }
+        .product-info { flex: 1; }
+        .product-name { font-weight: bold; color: white; }
+        .product-desc { font-size: 0.8rem; color: var(--muted); }
+        .product-price { color: var(--gold); font-weight: bold; }
+        .selected .check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; }
+        .selected .check::after { content: "✓"; color: var(--green); }
+        
+        .btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #2ea043; }
+        
+        .result { padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; }
+        .result.success { background: rgba(63,185,80,0.1); border: 1px solid var(--green); }
+        .result.error { background: rgba(248,81,73,0.1); border: 1px solid #f85149; }
+        .result.pending { background: rgba(240,180,41,0.1); border: 1px solid var(--gold); }
+        
+        .tracker-box { background: var(--primary); padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; }
+        .tracker-id { font-size: 1.5rem; color: var(--accent); font-family: monospace; font-weight: bold; letter-spacing: 2px; }
+        
+        .note { font-size: 0.8rem; color: var(--muted); margin-top: 15px; text-align: center; }
+        
+        .nav-links { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .nav-links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🚀 JekStore</div>
+            <div class="nav-links">
+                <a href="index.html">🏠 Home</a>
+                <a href="store.html">🛒 Store</a>
+                <a href="track.html">📦 Track Order</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Track Order Section -->
+        <div class="card">
+            <h2>📦 Track Your Order</h2>
+            <p style="color:var(--muted);margin-bottom:20px;">Enter your Tracker ID to verify payment and get your product.</p>
+            
+            <input type="text" id="trackerInput" placeholder="Enter Tracker ID (e.g., JK-ABC123)" 
+                style="width:100%;padding:15px;border-radius:10px;border:2px solid var(--border);background:var(--primary);color:var(--text);font-size:1rem;font-family:monospace;margin-bottom:15px;">
+            
+            <button class="btn" onclick="verifyOrder()">🔍 Verify & Download</button>
+        </div>
+        
+        <!-- Result Display -->
+        <div class="card" id="resultCard" style="display:none;">
+            <div class="result" id="resultBox">
+                <h3 id="resultTitle"></h3>
+                <p id="resultMessage"></p>
+            </div>
+            <a href="#" class="btn" id="downloadBtn" style="display:none;">⬇️ Download Product</a>
+        </div>
+        
+        <div class="note">
+            <p>💡 Your Tracker ID was given to you after making payment.</p>
+            <p>🔒 No login required. Privacy protected.</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p><a href="admin.html" style="color:var(--muted);font-size:0.7rem;">Admin</a></p>
+    </footer>
+    
+    <script>
+        function verifyOrder() {
+            const trackerId = document.getElementById('trackerInput').value.trim().toUpperCase();
+            
+            if (!trackerId) {
+                showResult('error', 'Please enter a Tracker ID');
+                return;
+            }
+            
+            // Check localStorage for this tracker
+            const orderData = localStorage.getItem('jekstore_order_' + trackerId);
+            
+            if (!orderData) {
+                showResult('error', 'Tracker ID not found. Please check and try again.');
+                return;
+            }
+            
+            const order = JSON.parse(orderData);
+            
+            if (order.status === 'paid') {
+                showResult('success', '✅ Payment Verified!', 'Your product is ready.');
+                document.getElementById('downloadBtn').style.display = 'block';
+                document.getElementById('downloadBtn').href = order.downloadUrl;
+            } else {
+                showResult('pending', '⏳ Payment Not Yet Verified', 'Please wait for blockchain confirmation.');
+            }
+        }
+        
+        function showResult(type, title, message) {
+            const card = document.getElementById('resultCard');
+            const box = document.getElementById('resultBox');
+            
+            card.style.display = 'block';
+            box.className = 'result ' + type;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultMessage').textContent = message || '';
+        }
+    </script>
+</body>
+</html>

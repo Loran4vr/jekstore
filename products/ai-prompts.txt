@@ -1,0 +1,145 @@
+# 🤖 CHATGPT PROMPT CHEATSHEET
+
+## 50+ Tested Prompts That Actually Work
+
+---
+
+## 💼 BUSINESS PROMPTS
+
+### For Writing Emails
+```
+Write a cold email to [target] about [product]. Keep it under 150 words. 
+Include: Hook, Value proposition, Call to action.
+Tone: Professional but friendly.
+```
+
+### For Business Ideas
+```
+I want to start a [type of business] in [location]. 
+Give me: 
+1. 5 business ideas
+2. For each: target audience, startup cost, potential revenue
+3. Best one with detailed plan
+```
+
+### For Marketing
+```
+Create a social media content calendar for [business type] for 30 days.
+Include: Post type, Caption, Hashtags, Best time to post.
+```
+
+---
+
+## ✍️ WRITING PROMPTS
+
+### For Blogs
+```
+Write a blog post about [topic]. 
+Include: 
+- Hook (first sentence)
+- 5 main points with subheadings
+- Practical tips
+- Conclusion with CTA
+Target: [audience], Tone: [tone]
+```
+
+### For Social Media
+```
+Generate 10 Instagram captions for [type of content].
+Include: Hook, Body, Hashtags (5-10).
+```
+
+### For Copywriting
+```
+Write 5 headlines for [product/service].
+Make them: Attention-grabbing, Benefit-driven, Specific.
+```
+
+---
+
+## 💻 CODING PROMPTS
+
+### For Code Review
+```
+Review this [language] code for bugs and improvements:
+[code here]
+Explain each issue and how to fix it.
+```
+
+### For Learning
+```
+Explain [concept] in simple terms.
+Include: 
+- Definition
+- Real-world example
+- When to use it
+- Common mistakes to avoid
+```
+
+---
+
+## 🎯 PRODUCTIVITY PROMPTS
+
+### For Planning
+```
+Create a weekly plan for [goal].
+Include:
+- 3 big tasks to complete
+- Daily schedule
+- Potential obstacles
+- How to overcome them
+```
+
+### For Problem Solving
+```
+I'm facing [problem]. Help me:
+1. Define the root cause
+2. List 5 possible solutions
+3. Pros/cons of each
+4. Best next step
+```
+
+---
+
+## 📊 DATA PROMPTS
+
+### For Analysis
+```
+Analyze this data and give me:
+- Key trends
+- 3 insights
+- Recommendations
+[data or describe data]
+```
+
+### For Reports
+```
+Create a summary report of [topic].
+Include: Executive summary, Key findings, Data visualization suggestions, Next steps.
+```
+
+---
+
+## 💡 HOW TO USE
+
+1. Copy any prompt
+2. Paste into ChatGPT/Claude/Gemini
+3. Replace [bracketed parts]
+4. Get results!
+
+---
+
+## 🎁 BONUS
+
+- 10 Prompt templates you can copy-paste
+- Quick reference card
+
+---
+
+## 💰 PRICE: $3
+
+50+ working prompts for just $3!
+
+---
+
+© 2026 JekStore

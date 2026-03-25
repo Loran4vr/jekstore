@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --red: #f85149; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; color: var(--gold); }
+        
+        .login-box { max-width: 400px; margin: 100px auto; }
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+        
+        h2 { color: var(--gold); margin-bottom: 20px; }
+        
+        .input { width: 100%; padding: 14px; border-radius: 10px; border: 2px solid var(--border); background: var(--primary); color: var(--text); font-size: 1rem; margin-bottom: 15px; box-sizing: border-box; }
+        .input:focus { outline: none; border-color: var(--accent); }
+        
+        .btn { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #4090e0; }
+        
+        .error { color: var(--red); margin-top: 10px; text-align: center; }
+        
+        /* Dashboard */
+        .dashboard { display: none; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; }
+        .stat { background: var(--secondary); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .stat-num { font-size: 2rem; color: var(--gold); font-weight: bold; }
+        .stat-label { font-size: 0.8rem; color: var(--muted); }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--gold); font-size: 0.9rem; }
+        td { font-size: 0.85rem; }
+        
+        .status-badge { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; }
+        .status-paid { background: rgba(63,185,80,0.2); color: var(--green); }
+        
+        .products-grid { display: grid; gap: 15px; margin-top: 20px; }
+        .product-item { background: var(--primary); border: 1px solid var(--border); border-radius: 10px; padding: 15px; display: flex; align-items: center; gap: 15px; }
+        .product-item .product-icon { font-size: 1.8rem; }
+        .product-item .product-name { flex: 1; font-weight: bold; color: white; }
+        .product-item .product-file { color: var(--muted); font-size: 0.8rem; font-family: monospace; }
+        .product-item .download-link { padding: 8px 15px; background: var(--green); color: white; text-decoration: none; border-radius: 6px; font-size: 0.85rem; }
+        .product-item .download-link:hover { background: #2ea043; }
+        
+        .logout { display: block; width: 200px; margin: 30px auto; padding: 12px; background: var(--secondary); border: 1px solid var(--border); color: var(--muted); text-align: center; border-radius: 8px; cursor: pointer; }
+        
+        .security-note { background: var(--secondary); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 30px 0; font-size: 0.85rem; color: var(--muted); }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.75rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">⚙️ JekStore Admin</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Login -->
+        <div class="login-box" id="loginCard">
+            <div class="card">
+                <h2>🔐 Secure Admin Access</h2>
+                <p style="color:var(--muted);margin-bottom:20px;font-size:0.9rem;">This area is restricted. Authorized personnel only.</p>
+                
+                <input type="text" class="input" id="adminUser" placeholder="Username">
+                <input type="password" class="input" id="adminPass" placeholder="Password">
+                
+                <button class="btn" onclick="adminLogin()">Login</button>
+                <p class="error" id="loginError"></p>
+                
+                <div class="security-note">
+                    🔒 Session-based authentication<br>
+                    📊 Sales data from blockchain<br>
+                    👥 No customer data stored
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <div class="card">
+                <h2>📊 Sales Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <div class="stat-num" id="totalRevenue">0.0000</div>
+                        <div class="stat-label">BTC Received</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="totalOrders">0</div>
+                        <div class="stat-label">Verified Orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num" id="lastOrder">--</div>
+                        <div class="stat-label">Last Order</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📦 Recent Orders</h2>
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>Tracker ID</th>
+                            <th>Product</th>
+                            <th>Amount (sats)</th>
+                            <th>TX ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody">
+                        <tr><td colspan="5" style="text-align:center;color:var(--muted);">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h2>📦 Product Library</h2>
+                <p style="color:var(--muted);margin-bottom:20px;">All products available for download (owner access):</p>
+                
+                <div class="products-grid">
+                    <div class="product-item">
+                        <div class="product-icon">💎</div>
+                        <div class="product-name">Ultimate Bundle (All 9)</div>
+                        <div class="product-file">products/bundle-all.txt</div>
+                        <a href="products/bundle-all.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon">📅</div>
+                        <div class="product-name">Notion Life Planner</div>
+                        <div class="product-file">products/notion-planner.txt</div>
+                        <a href="products/notion-planner.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon">🤖</div>
+                        <div class="product-name">500+ AI Prompts</div>
+                        <div class="product-file">products/ai-prompts.txt</div>
+                        <a href="products/ai-prompts.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon">📧</div>
+                        <div class="product-name">Email Templates</div>
+                        <div class="product-file">products/email-templates.txt</div>
+                        <a href="products/email-templates.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon">📝</div>
+                        <div class="product-name">Resume Templates</div>
+                        <div class="product-file">products/resume-templates.txt</div>
+                        <a href="products/resume-templates.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                    
+                    <div class="product-item">
+                        <div class="product-icon">📊</div>
+                        <div class="product-name">Excel Budget Tracker</div>
+                        <div class="product-file">products/excel-budget.txt</div>
+                        <a href="products/excel-budget.txt" class="download-link" target="_blank">⬇️ View/Download</a>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="logout" onclick="logout()">🚪 Logout</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Admin Panel • JekStore © 2026</p>
+    </footer>
+    
+    <script>
+        // Sophisticated credentials - CHANGE THESE!
+        const ADMIN_CREDENTIALS = {
+            'admin': 'JekStore_SecurePass_2026!#$%^&*',
+            'owner': 'MyBusiness_PrivateKey_X9z2w4'
+        };
+        
+        function adminLogin() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+            
+            if (ADMIN_CREDENTIALS[user] && ADMIN_CREDENTIALS[user] === pass) {
+                localStorage.setItem('jekstore_admin_session', 'true');
+                localStorage.setItem('jekstore_admin_user', user);
+                showDashboard();
+            } else {
+                document.getElementById('loginError').textContent = 'Invalid credentials';
+            }
+        }
+        
+        function showDashboard() {
+            document.getElementById('loginCard').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadData();
+        }
+        
+        function logout() {
+            localStorage.removeItem('jekstore_admin_session');
+            localStorage.removeItem('jekstore_admin_user');
+            location.reload();
+        }
+        
+        async function loadData() {
+            // Get blockchain data
+            try {
+                const resp = await fetch('https://mempool.space/api/address/1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ');
+                const data = await resp.json();
+                
+                const totalBTC = (data.chain_stats.funded_txo_sum - data.chain_stats.spent_txo_sum) / 100000000;
+                document.getElementById('totalRevenue').textContent = totalBTC.toFixed(4);
+                document.getElementById('totalOrders').textContent = data.chain_stats.funded_txo_count;
+                
+                // Get recent orders from localStorage
+                loadOrders();
+            } catch(e) {
+                console.log('Error loading data');
+            }
+        }
+        
+        function loadOrders() {
+            const tbody = document.getElementById('ordersBody');
+            const orders = [];
+            
+            // Scan localStorage for orders
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('jekstore_order_')) {
+                    const order = JSON.parse(localStorage.getItem(key));
+                    orders.push(order);
+                }
+            }
+            
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);">No orders yet</td></tr>';
+                return;
+            }
+            
+            // Sort by date
+            orders.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            tbody.innerHTML = orders.map(order => `
+                <tr>
+                    <td style="color:var(--accent);font-family:monospace;">${order.trackerId}</td>
+                    <td>${order.productName}</td>
+                    <td>${order.satoshis.toLocaleString()}</td>
+                    <td style="font-family:monospace;font-size:0.7rem;">${order.txId.substring(0,12)}...</td>
+                    <td><span class="status-badge status-paid">✓ Paid</span></td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('lastOrder').textContent = orders.length > 0 ? 'Active' : '--';
+        }
+        
+        // Check session
+        window.onload = function() {
+            if (localStorage.getItem('jekstore_admin_session') === 'true') {
+                showDashboard();
+            }
+        };
+    </script>
+</body>
+</html>

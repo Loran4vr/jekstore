@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekStore - Secure Bitcoin Payments</title>
+    <meta name="description" content="Secure anonymous Bitcoin payments. No personal data required.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .security-badge { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0; padding: 15px; background: var(--secondary); border-radius: 10px; }
+        .security-icon { font-size: 2rem; }
+        .security-text { text-align: left; }
+        .security-title { color: var(--green); font-weight: bold; }
+        .security-desc { font-size: 0.8rem; color: var(--muted); }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        
+        .product-select { margin-bottom: 20px; }
+        .product-option { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--primary); border: 2px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; }
+        .product-option:hover { border-color: var(--accent); }
+        .product-option.selected { border-color: var(--green); background: rgba(63,185,80,0.1); }
+        .product-info { flex: 1; }
+        .product-name { font-weight: bold; color: white; }
+        .product-desc { font-size: 0.8rem; color: var(--muted); }
+        .product-price { font-size: 1.2rem; color: var(--gold); font-weight: bold; }
+        .selected .check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; }
+        .selected .check::after { content: "✓"; color: var(--green); }
+        
+        .payment-box { background: var(--primary); border-radius: 12px; padding: 20px; text-align: center; margin: 20px 0; }
+        .btc-amount { font-size: 2rem; color: var(--gold); font-weight: bold; margin: 10px 0; }
+        .usd-amount { color: var(--muted); }
+        
+        .qr-container { margin: 20px 0; }
+        .qr-container img { max-width: 180px; border-radius: 10px; border: 3px solid var(--border); }
+        
+        .address-box { background: var(--primary); padding: 15px; border-radius: 8px; word-break: break-all; font-family: monospace; color: var(--gold); font-size: 0.8rem; margin: 15px 0; }
+        
+        .steps { background: rgba(88,166,255,0.1); padding: 15px; border-radius: 8px; font-size: 0.9rem; }
+        .steps ol { margin-left: 20px; }
+        .steps li { margin: 8px 0; }
+        
+        .verify-section { margin-top: 20px; }
+        .verify-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid var(--border); background: var(--primary); color: var(--text); font-family: monospace; font-size: 0.9rem; }
+        
+        .btn { width: 100%; padding: 16px; background: var(--green); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .btn:hover { background: #2ea043; }
+        
+        .status { padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; }
+        .status.pending { background: rgba(240,180,41,0.1); border: 1px solid var(--gold); }
+        .status.success { background: rgba(63,185,80,0.1); border: 1px solid var(--green); }
+        .status.error { background: rgba(248,81,73,0.1); border: 1px solid #f85149; }
+        
+        .tx-link { color: var(--accent); font-family: monospace; }
+        
+        .privacy-note { text-align: center; padding: 15px; color: var(--muted); font-size: 0.8rem; }
+        
+        footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">🚀 JekStore</div>
+            
+            <div class="security-badge">
+                <div class="security-icon">🔒</div>
+                <div class="security-text">
+                    <div class="security-title">Anonymous & Secure</div>
+                    <div class="security-desc">No account needed. No personal data collected.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Payment Status - Shows real-time network activity -->
+        <div class="card">
+            <h2 style="color:var(--gold);margin-bottom:15px;">💰 Payment Verification</h2>
+            <p style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;">
+                All transactions are verified on the public Bitcoin blockchain. 
+                No personal information is stored or required.
+            </p>
+            
+            <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;color:var(--green);">✓</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">Public Ledger</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;color:var(--green);">✓</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">No KYC Required</div>
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;color:var(--green);">✓</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">Instant</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works -->
+        <div class="card">
+            <h2 style="color:var(--accent);margin-bottom:15px;">📋 How It Works</h2>
+            <div class="steps">
+                <ol>
+                    <li><strong>Select product</strong> - Choose what you want to buy</li>
+                    <li><strong>Send Bitcoin</strong> - Pay exactly the amount shown to our address</li>
+                    <li><strong>Wait for confirmation</strong> - Usually 10-30 minutes</li>
+                    <li><strong>Enter your TX ID</strong> - Your transaction hash from your wallet</li>
+                    <li><strong>Instant delivery</strong> - Download link appears immediately!</li>
+                </ol>
+            </div>
+            <p style="margin-top:15px;font-size:0.85rem;color:var(--muted);">
+                💡 Your TX ID is like a receipt number. Check your wallet for it after sending.
+            </p>
+        </div>
+        
+        <!-- Select Product -->
+        <div class="card">
+            <h2 style="color:var(--gold);">🛒 Select Product</h2>
+            <div class="product-select">
+                <div class="product-option" onclick="selectProduct('bundle')">
+                    <div class="product-info">
+                        <div class="product-name">💎 Ultimate Bundle</div>
+                        <div class="product-desc">All 9 products - Save $83</div>
+                    </div>
+                    <div class="product-price">$25</div>
+                    <div class="check"></div>
+                </div>
+                
+                <div class="product-option" onclick="selectProduct('notion')">
+                    <div class="product-info">
+                        <div class="product-name">📅 Notion Life Planner</div>
+                        <div class="product-desc">50+ templates</div>
+                    </div>
+                    <div class="product-price">$19</div>
+                    <div class="check"></div>
+                </div>
+                
+                <div class="product-option" onclick="selectProduct('ai-prompts')">
+                    <div class="product-info">
+                        <div class="product-name">🤖 500+ AI Prompts</div>
+                        <div class="product-desc">ChatGPT, Claude, Gemini</div>
+                    </div>
+                    <div class="product-price">$14</div>
+                    <div class="check"></div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="generatePayment()">Generate Payment Address</button>
+        </div>
+        
+        <!-- Payment Display -->
+        <div class="card" id="paymentCard" style="display:none;">
+            <h2 style="color:var(--gold);">💸 Send Payment</h2>
+            
+            <div class="payment-box">
+                <div style="color:var(--muted);font-size:0.9rem;">Amount to send:</div>
+                <div class="btc-amount" id="btcAmount">-- BTC</div>
+                <div class="usd-amount" id="usdAmount">~$-- USD</div>
+            </div>
+            
+            <div class="qr-container">
+                <img id="qrCode" src="" alt="Bitcoin QR">
+            </div>
+            
+            <div style="color:var(--muted);font-size:0.85rem;margin-bottom:10px;">Send to this address:</div>
+            <div class="address-box" id="btcAddress">--</div>
+            
+            <div class="verify-section">
+                <div style="color:var(--accent);margin-bottom:10px;font-weight:bold;">After sending, enter your TX ID:</div>
+                <input type="text" class="verify-input" id="txId" placeholder="e.g., a1b2c3d4e5f6...">
+                <button class="btn" onclick="verifyPayment()">🔍 Verify & Download</button>
+            </div>
+            
+            <p style="margin-top:15px;font-size:0.8rem;color:var(--muted);">
+                🔗 <a href="https://mempool.space" target="_blank" style="color:var(--accent);">View on Blockchain Explorer</a>
+            </p>
+        </div>
+        
+        <!-- Success -->
+        <div class="card" id="successCard" style="display:none;">
+            <div class="status success">
+                <h3 style="color:var(--green);">✅ Payment Verified!</h3>
+                <p>Transaction confirmed on blockchain.</p>
+            </div>
+            <a href="#" class="btn" id="downloadLink">⬇️ Download Your Product</a>
+            <p style="margin-top:15px;font-size:0.85rem;color:var(--muted);text-align:center;">
+                TX: <span id="txDisplay" class="tx-link"></span>
+            </p>
+        </div>
+        
+        <!-- Error -->
+        <div class="card" id="errorCard" style="display:none;">
+            <div class="status error">
+                <h3 style="color:#f85149;">❌ Verification Failed</h3>
+                <p id="errorMsg">Transaction not found or amount incorrect.</p>
+            </div>
+        </div>
+        
+        <div class="privacy-note">
+            🔒 <strong>Privacy Protected:</strong> We do not collect, store, or require any personal information. 
+            All verification is done through the public Bitcoin blockchain.
+        </div>
+    </div>
+    
+    <footer>
+        <p>Secure Bitcoin Payments • No Data Collected</p>
+    </footer>
+    
+    <script>
+        const BTC_ADDRESS = '1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ';
+        
+        const PRODUCTS = {
+            'bundle': { name: 'Ultimate Bundle', priceUSD: 25, satoshis: 65800 },
+            'notion': { name: 'Notion Life Planner', priceUSD: 19, satoshis: 50000 },
+            'ai-prompts': { name: '500+ AI Prompts', priceUSD: 14, satoshis: 36800 }
+        };
+        
+        const DOWNLOADS = {
+            'bundle': 'products/bundle-all.txt',
+            'notion': 'products/notion-planner.txt',
+            'ai-prompts': 'products/ai-prompts.txt'
+        };
+        
+        let selectedProduct = null;
+        
+        function selectProduct(id) {
+            document.querySelectorAll('.product-option').forEach(p => p.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            selectedProduct = id;
+        }
+        
+        async function generatePayment() {
+            if (!selectedProduct) { alert('Please select a product'); return; }
+            
+            const product = PRODUCTS[selectedProduct];
+            const btcPrice = await fetch('https://mempool.space/api/v1/prices').then(r=>r.json()).then(d=>d.USD).catch(()=>65000);
+            const btcAmount = product.satoshis / 100000000;
+            
+            document.getElementById('btcAmount').textContent = btcAmount.toFixed(8) + ' BTC';
+            document.getElementById('usdAmount').textContent = '(~' + (btcAmount * btcPrice).toFixed(2) + ' USD)';
+            document.getElementById('btcAddress').textContent = BTC_ADDRESS;
+            document.getElementById('qrCode').src = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=${BTC_ADDRESS}&amount=${btcAmount}`;
+            
+            document.getElementById('paymentCard').style.display = 'block';
+        }
+        
+        async function verifyPayment() {
+            const txId = document.getElementById('txId').value.trim();
+            if (!txId || txId.length < 10) { alert('Please enter a valid TX ID'); return; }
+            
+            const product = PRODUCTS[selectedProduct];
+            const required = product.satoshis;
+            
+            try {
+                const resp = await fetch('https://mempool.space/api/tx/' + txId);
+                if (!resp.ok) throw new Error('TX not found');
+                
+                const tx = await resp.json();
+                let total = 0;
+                for (const out of tx.vout) {
+                    if (out.scriptpubkey_address === BTC_ADDRESS) total += out.value;
+                }
+                
+                if (total >= required) {
+                    document.getElementById('paymentCard').style.display = 'none';
+                    document.getElementById('successCard').style.display = 'block';
+                    document.getElementById('downloadLink').href = DOWNLOADS[selectedProduct];
+                    document.getElementById('txDisplay').textContent = txId;
+                } else {
+                    throw new Error('Amount too low');
+                }
+            } catch(e) {
+                document.getElementById('paymentCard').style.display = 'none';
+                document.getElementById('errorCard').style.display = 'block';
+                document.getElementById('errorMsg').textContent = e.message || 'Verification failed';
+            }
+        }
+    </script>
+</body>
+</html>

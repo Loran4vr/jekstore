@@ -1,0 +1,25 @@
+{
+  "orders": [],
+  "products": {
+    "notion-planner": {
+      "name": "Notion Life Planner",
+      "price_usd": 19,
+      "price_btc_satoshis": 50000
+    },
+    "ai-prompts": {
+      "name": "500+ AI Prompts Pack",
+      "price_usd": 14,
+      "price_btc_satoshis": 36800
+    },
+    "email-templates": {
+      "name": "100 Email Templates",
+      "price_usd": 12,
+      "price_btc_satoshis": 31600
+    },
+    "bundle": {
+      "name": "Ultimate Bundle (All Products)",
+      "price_usd": 25,
+      "price_btc_satoshis": 65800
+    }
+  }
+}

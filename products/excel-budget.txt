@@ -1,0 +1,145 @@
+# 📊 EXCEL BUDGET TRACKER 2026
+## Complete Personal Finance Manager
+
+---
+
+## 🚀 GETTING STARTED
+
+1. Download the Excel file
+2. Open in Excel, Google Sheets, or Numbers
+3. Start entering your data!
+4. Dashboard updates automatically
+
+---
+
+## 📁 FILES INCLUDED
+
+### 1. MAIN DASHBOARD
+- Monthly overview
+- Income vs Expenses chart
+- Savings rate calculator
+- Category breakdown pie chart
+- Year-to-date totals
+
+### 2. INCOME TRACKER
+- Salary/wages
+- Side hustle income
+- Investment returns
+- Other income
+- Monthly income trend
+
+### 3. EXPENSE TRACKER
+Categories included:
+- 🏠 Housing (rent/mortgage)
+- 🚗 Transportation (gas, insurance)
+- 🛒 Groceries
+- 🍔 Dining Out
+- 💡 Utilities (electric, water, internet)
+- 📱 Phone/Internet
+- 🎬 Entertainment
+- 🏋️ Gym/Fitness
+- 👕 Clothing
+- 💊 Healthcare
+- 🎁 Gifts
+- ✈️ Travel
+- 📚 Education
+- 💰 Savings
+- 📋 Other
+
+### 4. BILL TRACKER
+- List of recurring bills
+- Due dates
+- Payment status
+- Annual totals
+
+### 5. DEBT TRACKER
+- Credit cards
+- Student loans
+- Car loans
+- Other debt
+- Payoff plan
+
+### 6. SAVINGS GOALS
+- Emergency fund
+- Vacation fund
+- New car
+- Home down payment
+- Retirement
+- Custom goals
+
+### 7. YEARLY OVERVIEW
+- 12-month comparison
+- Annual totals
+- Category averages
+
+---
+
+## ✨ FEATURES
+
+✅ Auto-calculating formulas
+✅ Visual charts & graphs
+✅ Monthly & yearly views
+✅ Debt payoff calculator
+✅ Savings goal tracker
+✅ Bill reminder system
+✅ Import bank CSV
+✅ Print-friendly reports
+
+---
+
+## 💡 HOW TO USE
+
+1. **Set up categories** - Edit categories to match your spending
+2. **Enter income** - Add all income sources
+3. **Log expenses** - Record as you spend
+4. **Review weekly** - Check progress
+5. **Analyze monthly** - See where money goes
+
+---
+
+## 🎯 BUDGET FORMULA
+
+Use the 50/30/20 rule:
+- 50% Needs (housing, food, utilities)
+- 30% Wants (entertainment, dining)
+- 20% Savings & Debt Payoff
+
+---
+
+## 🔢 AUTOMATED CALCULATIONS
+
+The spreadsheet automatically calculates:
+- Total income
+- Total expenses
+- Net savings
+- Savings rate %
+- Category totals
+- Monthly trends
+- Year-to-date totals
+
+---
+
+## 📈 EXAMPLE CATEGORIES
+
+| Category | Monthly Budget |
+|----------|---------------|
+| Groceries | $500 |
+| Dining | $200 |
+| Transport | $300 |
+| Utilities | $200 |
+| Entertainment | $150 |
+| Savings | $500 |
+
+---
+
+## 💰 TO REACH $200/DAY:
+
+Track your spending to find areas to cut:
+- Cancel unused subscriptions
+- Cook more meals at home
+- Use public transportation
+- Shop sales & use coupons
+
+---
+
+© 2026 JekStore - jekstore.netlify.app

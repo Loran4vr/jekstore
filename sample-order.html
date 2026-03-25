@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Free Sample Order | DigitalStore</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        h1 { color: #58a6ff; text-align: center; }
+        h2 { color: #f0b429; margin-top: 0; }
+        .product {
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .product-name { font-size: 1.2rem; font-weight: bold; }
+        .price { color: #3fb950; font-size: 1.5rem; }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #238636;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover { background: #2ea043; }
+        .receipt {
+            display: none;
+            background: #161b22;
+            border: 2px solid #3fb950;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .receipt.show { display: block; }
+        .receipt h2 { color: #3fb950; text-align: center; }
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #30363d;
+        }
+        .receipt-row:last-child { border-bottom: none; }
+        .total { font-size: 1.3rem; font-weight: bold; color: #f0b429; }
+        .order-id { 
+            background: #0d1117; 
+            padding: 10px; 
+            border-radius: 6px; 
+            font-family: monospace;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🆓 Free Sample Order</h1>
+    
+    <div class="card">
+        <p>Order a free sample product to test the system and receive a receipt!</p>
+        
+        <div class="product">
+            <div class="product-name">📦 Sample Product Pack</div>
+            <p>Includes: Notion Planner Sample, AI Prompts Sample, Email Template Sample</p>
+            <div class="price">$0.00 USD</div>
+        </div>
+        
+        <button onclick="orderSample()">🆓 Order Free Sample</button>
+    </div>
+    
+    <div class="receipt" id="receipt">
+        <h2>✅ ORDER CONFIRMED</h2>
+        
+        <div class="receipt-row">
+            <span>Order ID:</span>
+            <span id="orderId"></span>
+        </div>
+        <div class="receipt-row">
+            <span>Date:</span>
+            <span id="orderDate"></span>
+        </div>
+        <div class="receipt-row">
+            <span>Status:</span>
+            <span style="color: #3fb950;">PAID</span>
+        </div>
+        <div class="receipt-row">
+            <span>Payment:</span>
+            <span>FREE SAMPLE</span>
+        </div>
+        <div class="receipt-row">
+            <span>Product:</span>
+            <span>Sample Product Pack</span>
+        </div>
+        <div class="receipt-row total">
+            <span>Total:</span>
+            <span>$0.00 USD</span>
+        </div>
+        
+        <div class="order-id">
+            Verification Code:<br>
+            <strong id="verifyCode"></strong>
+        </div>
+        
+        <p style="text-align: center; color: #8b949e; margin-top: 20px;">
+            You can verify this order at the verification page!
+        </p>
+    </div>
+    
+    <script>
+        function orderSample() {
+            const now = new Date();
+            const orderId = 'ORD-' + Date.now().toString(36).toUpperCase();
+            const verifyCode = 'SAMPLE-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+            
+            document.getElementById('orderId').textContent = orderId;
+            document.getElementById('orderDate').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+            document.getElementById('verifyCode').textContent = verifyCode;
+            
+            document.getElementById('receipt').classList.add('show');
+            
+            // Save to localStorage
+            const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+            orders.push({
+                id: orderId,
+                code: verifyCode,
+                date: now.toISOString(),
+                product: 'Sample Product Pack',
+                total: 0
+            });
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+    </script>
+</body>
+</html>
