@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JekAPI - Automated Services</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 700px; margin: 0 auto; padding: 20px; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 2.5rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 25px; margin-bottom: 20px; }
+        h2 { color: var(--gold); margin-bottom: 15px; }
+        h3 { color: white; margin: 15px 0 10px; }
+        
+        .service { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--primary); border-radius: 10px; margin-bottom: 10px; }
+        .service-name { font-weight: bold; color: white; }
+        .service-price { color: var(--gold); font-weight: bold; }
+        
+        .input { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border); background: var(--primary); color: var(--text); margin-bottom: 10px; }
+        .input:focus { outline: none; border-color: var(--accent); }
+        
+        .btn { width: 100%; padding: 14px; background: var(--green); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #2ea043; }
+        
+        .note { background: rgba(88,166,255,0.1); padding: 15px; border-radius: 8px; font-size: 0.85rem; margin: 15px 0; }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">⚡ JekAPI</div>
+            <p style="color:var(--muted);margin-top:10px;">Automated Services - Pay with Bitcoin</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2>🚀 Available Services</h2>
+            
+            <div class="service">
+                <div>
+                    <div class="service-name">🔔 BTC Monitor (30 days)</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">We monitor 1 Bitcoin address and alert you via email/Telegram when payments arrive</div>
+                </div>
+                <div class="service-price">$2</div>
+            </div>
+            
+            <div class="service">
+                <div>
+                    <div class="service-name">📊 Web Data Scraping</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">Get data from any public website - JSON, CSV, or formatted report</div>
+                </div>
+                <div class="service-price">$5+</div>
+            </div>
+            
+            <div class="service">
+                <div>
+                    <div class="service-name">🤖 Automation Script</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">We'll build a Python script to automate your repetitive task</div>
+                </div>
+                <div class="service-price">$10+</div>
+            </div>
+            
+            <div class="service">
+                <div>
+                    <div class="service-name">📄 Document Processing</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">Convert, extract, or process documents - PDF, Excel, CSV, etc.</div>
+                </div>
+                <div class="service-price">$3+</div>
+            </div>
+            
+            <div class="service">
+                <div>
+                    <div class="service-name">🔄 Daily API Checks</div>
+                    <div style="font-size:0.8rem;color:var(--muted);">We monitor your API endpoint and alert you when it's down (30 days)</div>
+                </div>
+                <div class="service-price">$3</div>
+            </div>
+        </div>
+        
+        <div class="card" id="orderCard">
+            <h2>📝 Request Service</h2>
+            
+            <select class="input" id="serviceType">
+                <option value="">Select a service...</option>
+                <option value="btc-monitor">🔔 BTC Monitor ($2)</option>
+                <option value="scraping">📊 Web Scraping ($5+)</option>
+                <option value="automation">🤖 Automation Script ($10+)</option>
+                <option value="document">📄 Document Processing ($3+)</option>
+                <option value="api-check">🔄 API Monitoring ($3)</option>
+                <option value="custom">💬 Custom Request</option>
+            </select>
+            
+            <input type="text" class="input" id="email" placeholder="Your email address">
+            <textarea class="input" id="details" rows="4" placeholder="Describe what you need..."></textarea>
+            
+            <button class="btn" onclick="submitOrder()">Continue to Payment</button>
+        </div>
+        
+        <div class="card" id="paymentCard" style="display:none;">
+            <h2>💰 Pay with Bitcoin</h2>
+            
+            <div class="btc-amount" style="background:var(--primary);padding:20px;border-radius:10px;text-align:center;margin:15px 0;">
+                <div style="font-size:1.5rem;color:var(--gold);font-weight:bold;" id="btcDisplay">-- BTC</div>
+                <div style="font-size:0.85rem;color:var(--muted);" id="usdDisplay">~$-- USD</div>
+            </div>
+            
+            <div style="text-align:center;margin:15px 0;">
+                <img id="qrCode" style="max-width:150px;border-radius:10px;border:2px solid var(--border);" src="" alt="QR">
+            </div>
+            
+            <div style="background:var(--primary);padding:12px;border-radius:8px;word-break:break-all;font-family:monospace;font-size:0.75rem;text-align:center;" id="btcAddress"></div>
+            
+            <div style="background:rgba(88,166,255,0.1);padding:12px;border-radius:8px;font-size:0.8rem;margin:15px 0;">
+                <strong>Instructions:</strong>
+                <ol style="margin-left:18px;margin-top:5px;">
+                    <li>Send exactly <strong id="exactAmount"></strong> BTC</li>
+                    <li>Wait for confirmation</li>
+                    <li>We'll start working within 24 hours!</li>
+                </ol>
+            </div>
+            
+            <input type="text" class="input" id="txId" placeholder="Your Transaction ID (TX ID)">
+            <button class="btn" onclick="verifyAndSubmit()">Submit Request</button>
+            <button class="btn" onclick="backToForm()" style="background:var(--secondary);border:1px solid var(--border);margin-top:10px;">← Back</button>
+        </div>
+        
+        <div class="card" id="successCard" style="display:none;">
+            <div style="background:rgba(63,185,80,0.1);border:1px solid var(--green);padding:20px;border-radius:10px;text-align:center;">
+                <h3 style="color:var(--green);">✅ Request Submitted!</h3>
+                <p style="margin-top:10px;">We'll contact you within 24 hours to confirm details.</p>
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>💡 How it works:</strong>
+            <ul style="margin-left:18px;margin-top:5px;">
+                <li>Select a service and describe your needs</li>
+                <li>Pay with Bitcoin (any amount above the minimum)</li>
+                <li>We complete the work and deliver via email</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Questions? Just submit a request!</p>
+    </footer>
+    
+    <script>
+        const BTC_ADDRESS = '1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ';
+        
+        const PRICES = {
+            'btc-monitor': 2,
+            'scraping': 5,
+            'automation': 10,
+            'document': 3,
+            'api-check': 3,
+            'custom': 5
+        };
+        
+        let selectedService = '';
+        
+        async function submitOrder() {
+            const service = document.getElementById('serviceType').value;
+            const email = document.getElementById('email').value;
+            const details = document.getElementById('details').value;
+            
+            if (!service || !email) {
+                alert('Please select a service and provide your email');
+                return;
+            }
+            
+            selectedService = service;
+            const priceUSD = PRICES[service];
+            
+            // Get BTC price
+            let btcPrice = 65000;
+            try {
+                const resp = await fetch('https://mempool.space/api/v1/prices');
+                btcPrice = await resp.json();
+                btcPrice = btcPrice.USD;
+            } catch(e) {}
+            
+            const btcAmount = priceUSD / btcPrice;
+            
+            document.getElementById('btcDisplay').textContent = btcAmount.toFixed(8) + ' BTC';
+            document.getElementById('usdDisplay').textContent = '(~' + priceUSD + ' USD)';
+            document.getElementById('exactAmount').textContent = btcAmount.toFixed(8);
+            document.getElementById('btcAddress').textContent = BTC_ADDRESS;
+            
+            const qrUrl = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=${BTC_ADDRESS}&amount=${btcAmount}`;
+            document.getElementById('qrCode').src = qrUrl;
+            
+            document.getElementById('orderCard').style.display = 'none';
+            document.getElementById('paymentCard').style.display = 'block';
+        }
+        
+        function backToForm() {
+            document.getElementById('paymentCard').style.display = 'none';
+            document.getElementById('orderCard').style.display = 'block';
+        }
+        
+        async function verifyAndSubmit() {
+            const txId = document.getElementById('txId').value.trim();
+            const service = selectedService;
+            const email = document.getElementById('email').value;
+            const details = document.getElementById('details').value;
+            const priceUSD = PRICES[service];
+            
+            if (!txId || txId.length < 10) {
+                alert('Please enter a valid transaction ID');
+                return;
+            }
+            
+            const btn = event.target;
+            btn.textContent = 'Verifying...';
+            btn.disabled = true;
+            
+            try {
+                const resp = await fetch('https://mempool.space/api/tx/' + txId);
+                if (!resp.ok) {
+                    alert('Transaction not found. Please check and try again.');
+                    btn.textContent = 'Submit Request';
+                    btn.disabled = false;
+                    return;
+                }
+                
+                const tx = await resp.json();
+                let total = 0;
+                for (let vout of tx.vout) {
+                    if (vout.scriptpubkey_address === BTC_ADDRESS) {
+                        total += vout.value;
+                    }
+                }
+                
+                const required = priceUSD * 100000000;
+                
+                if (total >= required) {
+                    // Submit order
+                    document.getElementById('paymentCard').style.display = 'none';
+                    document.getElementById('successCard').style.display = 'block';
+                    
+                    // Log order (in real app, would save to database)
+                    console.log('NEW ORDER:', { service, email, details, txId, priceUSD });
+                } else {
+                    alert('Insufficient payment. Required: ' + (required/100000000).toFixed(8) + ' BTC');
+                    btn.textContent = 'Submit Request';
+                    btn.disabled = false;
+                }
+            } catch(e) {
+                alert('Error verifying. Please try again.');
+                btn.textContent = 'Submit Request';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
