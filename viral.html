@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 Viral Prediction - Share to Win!</title>
+    <meta property="og:title" content="🔮 My 2026 Prediction: [RESULT] - What's yours?">
+    <meta property="og:description" content="Free prediction generator! Share your result!">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --pink: #ff6b9d; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--pink), var(--accent)); }
+        .logo { font-size: 3rem; }
+        .tagline { color: white; font-size: 1.2rem; margin-top: 10px; }
+        
+        .container { max-width: 600px; margin: 0 auto; padding: 30px 20px; flex: 1; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 20px; padding: 30px; text-align: center; margin-bottom: 20px; }
+        
+        .prediction { font-size: 2.5rem; margin: 20px 0; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .emoji { font-size: 4rem; display: block; margin: 20px 0; }
+        
+        .btn { display: inline-block; padding: 16px 32px; background: var(--green); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin: 10px; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.05); }
+        
+        .share-btns { margin: 30px 0; }
+        .share-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; margin: 5px; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.facebook { background: #4267b2; }
+        .share-btn.whatsapp { background: #25d366; }
+        .share-btn.telegram { background: #0088cc; }
+        .share-btn.reddit { background: #ff4500; }
+        
+        .generated { display: none; }
+        .generated.show { display: block; }
+        
+        .viral-count { background: var(--primary); padding: 20px; border-radius: 12px; margin: 20px 0; }
+        .viral-count span { color: var(--gold); font-size: 1.5rem; font-weight: bold; }
+        
+        .footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🔮</div>
+        <div class="tagline">🎯 Free Viral Prediction Generator!</div>
+    </header>
+    
+    <div class="container">
+        <div class="card" id="inputCard">
+            <h2 style="color:white;margin-bottom:20px;">🎰 Generate Your Viral Prediction</h2>
+            <p style="color:var(--muted);margin-bottom:20px;">Enter your name and get a unique 2026 prediction!</p>
+            
+            <input type="text" id="nameInput" placeholder="Your name" style="width:100%;padding:16px;border-radius:12px;border:2px solid var(--border);background:var(--primary);color:white;font-size:1.1rem;margin-bottom:15px;">
+            
+            <button class="btn" onclick="generatePrediction()">🔮 Generate My Prediction!</button>
+        </div>
+        
+        <div class="card generated" id="resultCard">
+            <div class="emoji" id="resultEmoji">🚀</div>
+            <div class="prediction" id="resultText">BIG THINGS COMING!</div>
+            <p style="color:var(--muted);" id="resultDesc">Something amazing is about to happen...</p>
+            
+            <div class="viral-count">
+                <p>🎉 <span id="shareCount">1,247</span> people have shared today!</p>
+            </div>
+            
+            <h3 style="color:white;margin:20px 0;">📤 Share Your Prediction!</h3>
+            
+            <div class="share-btns">
+                <a href="#" id="shareTwitter" class="share-btn twitter" target="_blank" onclick="shareTwitter()">🐦 Twitter</a>
+                <a href="#" id="shareFacebook" class="share-btn facebook" target="_blank" onclick="shareFacebook()">📘 Facebook</a>
+                <a href="#" id="shareWhatsApp" class="share-btn whatsapp" target="_blank" onclick="shareWhatsApp()">💬 WhatsApp</a>
+                <a href="#" id="shareTelegram" class="share-btn telegram" target="_blank" onclick="shareTelegram()">✈️ Telegram</a>
+            </div>
+            
+            <button class="btn" onclick="generateNew()" style="background:var(--secondary);border:2px solid var(--border);">🎲 Try Another</button>
+            
+            <div style="margin-top:30px;">
+                <a href="store.html" class="btn" style="background:var(--gold);color:var(--primary);">🛒 Check Out Our Store!</a>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>💡 How it works:</h3>
+            <ol style="text-align:left;margin:15px 0 0 20px;color:var(--muted);">
+                <li>Enter your name</li>
+                <li>Get your unique prediction</li>
+                <li>Share it on social media!</li>
+                <li>Tag friends to get their predictions</li>
+            </ol>
+        </div>
+    </div>
+    
+    <footer>
+        <p>🔮 Powered by JekStore | <a href="store.html" style="color:var(--accent);">Visit Store</a></p>
+    </footer>
+    
+    <script>
+        const predictions = [
+            { emoji: "🚀", text: "BIG BREAKTHROUGH!", desc: "Something incredible is about to change your life!" },
+            { emoji: "💰", text: "FINANCIAL WIN!", desc: "Money opportunities are coming your way!" },
+            { emoji: "❤️", text: "LOVE CONNECTION!", desc: "A special someone is thinking of you!" },
+            { emoji: "⭐", text: "FAME MOMENT!", desc: "Your moment in the spotlight is coming!" },
+            { emoji: "🎯", text: "PERFECT TIMING!", desc: "Everything aligns perfectly this year!" },
+            { emoji: "🌟", text: "DREAM COME TRUE!", desc: "Your wishes are about to be granted!" },
+            { emoji: "🔥", text: "HOT STREAK!", desc: "Nothing can stop you now!" },
+            { emoji: "💎", text: "RARE OPPORTUNITY!", desc: "Something unique comes your way!" },
+            { emoji: "🎉", text: "BIG CELEBRATION!", desc: "Something worth celebrating is coming!" },
+            { emoji: "⚡", text: "ENERGY SURGE!", desc: "Your motivation is about to skyrocket!" },
+            { emoji: "🌈", text: "RAINBOW MOMENT!", desc: "After rain comes sunshine!" },
+            { emoji: "🏆", text: "VICTORY!", desc: "Success is guaranteed this year!" }
+        ];
+        
+        let currentPrediction = null;
+        
+        function generatePrediction() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (!name) { alert('Please enter your name!'); return; }
+            
+            // Seeded random based on name
+            let seed = 0;
+            for (let i = 0; i < name.length; i++) {
+                seed += name.charCodeAt(i);
+            }
+            const index = seed % predictions.length;
+            currentPrediction = predictions[index];
+            
+            document.getElementById('resultEmoji').textContent = currentPrediction.emoji;
+            document.getElementById('resultText').textContent = currentPrediction.text;
+            document.getElementById('resultDesc').textContent = currentPrediction.desc;
+            
+            // Random share count
+            const count = Math.floor(Math.random() * 5000) + 1000;
+            document.getElementById('shareCount').textContent = count.toLocaleString();
+            
+            document.getElementById('inputCard').style.display = 'none';
+            document.getElementById('resultCard').classList.add('show');
+            
+            // Update share URLs
+            updateShareLinks(name);
+        }
+        
+        function updateShareLinks(name) {
+            const text = encodeURIComponent(`🔮 My 2026 Prediction: ${currentPrediction.text}\n\n${currentPrediction.desc}\n\n🎯 Get yours: ${window.location.href}`);
+            
+            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${text}`;
+            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+            document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${text}`;
+            document.getElementById('shareTelegram').href = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${text}`;
+        }
+        
+        function generateNew() {
+            document.getElementById('resultCard').classList.remove('show');
+            document.getElementById('inputCard').style.display = 'block';
+            document.getElementById('nameInput').value = '';
+        }
+        
+        function shareTwitter() { window.open(document.getElementById('shareTwitter').href, '_blank'); }
+        function shareFacebook() { window.open(document.getElementById('shareFacebook').href, '_blank'); }
+        function shareWhatsApp() { window.open(document.getElementById('shareWhatsApp').href, '_blank'); }
+        function shareTelegram() { window.open(document.getElementById('shareTelegram').href, '_blank'); }
+    </script>
+</body>
+</html>
