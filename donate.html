@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - JekStore</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --gold: #f0b429; --green: #3fb950; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; text-align: center; }
+        header { padding: 30px 0; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .logo { font-size: 2.5rem; background: linear-gradient(135deg, var(--accent), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 16px; padding: 30px; margin-bottom: 20px; }
+        
+        .qr { margin: 20px 0; }
+        .qr img { max-width: 200px; border-radius: 10px; border: 3px solid var(--gold); }
+        
+        .address { background: var(--primary); padding: 15px; border-radius: 10px; word-break: break-all; font-family: monospace; color: var(--gold); font-size: 0.9rem; margin: 15px 0; }
+        
+        .amount-buttons { display: flex; gap: 10px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+        .amount-btn { padding: 12px 20px; background: var(--primary); border: 2px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer; font-size: 1rem; }
+        .amount-btn:hover { border-color: var(--accent); }
+        .amount-btn.selected { border-color: var(--green); background: rgba(63,185,80,0.1); }
+        
+        .custom-amount { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid var(--border); background: var(--primary); color: var(--text); font-size: 1rem; margin-top: 10px; }
+        
+        .note { background: rgba(88,166,255,0.1); padding: 15px; border-radius: 10px; font-size: 0.85rem; margin: 20px 0; }
+        
+        footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+        
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">💙 Support JekStore</div>
+            <p style="color:var(--muted);margin-top:10px;">Help us keep the lights on!</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2 style="color:var(--gold);margin-bottom:15px;">☕ Buy us a Coffee</h2>
+            <p style="color:var(--muted);margin-bottom:20px;">Any amount helps! We provide free tools and products.</p>
+            
+            <div class="amount-buttons">
+                <button class="amount-btn" onclick="setAmount(1)">$1</button>
+                <button class="amount-btn selected" onclick="setAmount(5)">$5</button>
+                <button class="amount-btn" onclick="setAmount(10)">$10</button>
+                <button class="amount-btn" onclick="setAmount(25)">$25</button>
+            </div>
+            
+            <input type="number" class="custom-amount" id="customAmount" placeholder="Or enter custom amount in USD" onchange="setCustomAmount()">
+            
+            <div class="qr">
+                <img id="qrCode" src="" alt="Bitcoin QR">
+            </div>
+            
+            <div class="address" id="btcAddress"></div>
+            
+            <p style="font-size:0.8rem;color:var(--muted);">
+                Send any amount to this address:<br>
+                <span style="color:var(--gold);font-family:monospace;">1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</span>
+            </p>
+        </div>
+        
+        <div class="card">
+            <h3 style="color:white;margin-bottom:10px;">💡 Why Donate?</h3>
+            <ul style="text-align:left;margin-left:20px;color:var(--muted);font-size:0.9rem;">
+                <li>Free tools stay free</li>
+                <li>Help us add more products</li>
+                <li>Support independent creators</li>
+                <li>Keep Bitcoin-powered services alive</li>
+            </ul>
+        </div>
+        
+        <div class="note">
+            <strong>🔒 Anonymous:</strong> No account needed. Just send Bitcoin and optionally enter your email for updates!
+            <br><br>
+            <input type="email" class="custom-amount" id="email" placeholder="Your email (optional) - we'll send receipt">
+        </div>
+        
+        <div style="margin:20px 0;">
+            <a href="store.html" style="display:inline-block;padding:12px 25px;background:var(--secondary);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;margin-right:10px;">🛒 Store</a>
+            <a href="services.html" style="display:inline-block;padding:12px 25px;background:var(--secondary);border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;">⚡ Services</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Thank you for your support! 🙏</p>
+    </footer>
+    
+    <script>
+        const BTC_ADDRESS = '1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ';
+        let currentUSD = 5;
+        
+        async function updateQR() {
+            let btcPrice = 65000;
+            try {
+                const resp = await fetch('https://mempool.space/api/v1/prices');
+                btcPrice = await resp.json();
+                btcPrice = btcPrice.USD;
+            } catch(e) {}
+            
+            const btcAmount = currentUSD / btcPrice;
+            
+            const qrUrl = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&address=${BTC_ADDRESS}&amount=${btcAmount}`;
+            document.getElementById('qrCode').src = qrUrl;
+            document.getElementById('btcAddress').textContent = BTC_ADDRESS;
+        }
+        
+        function setAmount(usd) {
+            currentUSD = usd;
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.getElementById('customAmount').value = '';
+            updateQR();
+        }
+        
+        function setCustomAmount() {
+            const val = parseFloat(document.getElementById('customAmount').value);
+            if (val > 0) {
+                currentUSD = val;
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+                updateQR();
+            }
+        }
+        
+        updateQR();
+    </script>
+</body>
+</html>
