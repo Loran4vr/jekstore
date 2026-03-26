@@ -1,0 +1,228 @@
+
+
+========== PHYSICS ==========
+Classical mechanics: Newton's laws, motion, forces, energy conservation
+Electromagnetism: Electric fields, magnetic fields, light, Maxwell's equations
+Thermodynamics: Heat, entropy, energy systems, engines
+Quantum mechanics: Wave-particle duality, uncertainty principle, superposition
+Relativity: Special relativity, general relativity, spacetime, gravity
+Particle physics: Quarks, leptons, bosons, Standard Model
+Optics: Light behavior, lenses, lasers, fiber optics
+Acoustics: Sound waves, frequency, resonance
+Solid state physics: Crystals, semiconductors, superconductors
+
+========== ASTRONOMY ==========
+Solar system: Sun, planets, moons, asteroids, comets
+Stars: Formation, lifecycles, fusion, death
+Galaxies: Types, structure, supermassive black holes
+Cosmology: Big Bang, dark matter, dark energy, expansion
+Exoplanets: Discovery methods, habitable zones, search for life
+Space exploration: Missions, telescopes, rockets, space stations
+Astrobiology: Life in universe, panspermia, habitable conditions
+
+========== CHEMISTRY ==========
+Atomic structure: Protons, neutrons, electrons, periodic table
+Chemical bonding: Ionic, covalent, metallic bonds
+Organic chemistry: Carbon compounds, hydrocarbons, functional groups
+Biochemistry: Enzymes, proteins, DNA, metabolism
+Thermochemistry: Reactions, energy changes, Hess's law
+Electrochemistry: Redox reactions, batteries, electrolysis
+Analytical chemistry: Spectroscopy, chromatography, mass spectrometry
+
+========== BIOLOGY ==========
+Cell biology: Organelles, membranes, transport, division
+Genetics: DNA, RNA, genes, inheritance, mutations
+Evolution: Natural selection, speciation, adaptation
+Ecology: Ecosystems, food webs, biodiversity, conservation
+Microbiology: Bacteria, viruses, fungi, pathogens
+Human anatomy: Systems, organs, tissues
+Human physiology: Homeostasis, nervous system, endocrine system
+Immunology: Immune response, antibodies, vaccines
+
+========== MATHEMATICS ==========
+Arithmetic: Basic operations, fractions, decimals
+Algebra: Equations, polynomials, factoring
+Geometry: Shapes, angles, proofs, trigonometry
+Calculus: Derivatives, integrals, limits, series
+Linear algebra: Matrices, vectors, transformations
+Statistics: Probability, distributions, hypothesis testing
+Number theory: Primes, divisibility, cryptography
+Logic: Propositional logic, proofs, set theory
+
+========== COMPUTER SCIENCE ==========
+Programming: Python, JavaScript, Java, C++, algorithms
+Data structures: Arrays, linked lists, trees, graphs
+Databases: SQL, NoSQL, queries, design
+Networks: Protocols, TCP/IP, internet, security
+AI/ML: Neural networks, deep learning, transformers
+Web development: HTML, CSS, JavaScript, frameworks
+Operating systems: Processes, memory, file systems
+Cybersecurity: Encryption, authentication, vulnerabilities
+
+========== ENGINEERING ==========
+Mechanical: Machines, thermodynamics, materials
+Electrical: Circuits, electronics, signal processing
+Civil: Structures, bridges, buildings
+Chemical: Processes, reactors, safety
+Aerospace: Aeronautics, spacecraft, propulsion
+Biomedical: Medical devices, imaging, prosthetics
+
+========== HISTORY ==========
+Ancient history: Egypt, Greece, Rome, Mesopotamia
+Medieval: Feudalism, Crusades, Renaissance
+Modern history: Enlightenment, Revolution, Industrial
+20th century: World wars, Cold War, decolonization
+21st century: Technology, climate, globalization
+Science history: Key discoveries, scientists, breakthroughs
+
+========== PHILOSOPHY ==========
+Metaphysics: Reality, existence, being
+Epistemology: Knowledge, truth, belief
+Ethics: Morality, values, virtue
+Logic: Reasoning, arguments, fallacies
+Aesthetics: Beauty, art, taste
+Political philosophy: Justice, rights, governance
+Philosophy of mind: Consciousness, identity, AI
+Existentialism: Meaning, authenticity, freedom
+
+========== PSYCHOLOGY ==========
+Cognitive: Thinking, memory, perception
+Behavioral: Conditioning, learning, behavior
+Developmental: Lifespan, stages, milestones
+Social: Groups, relationships, conformity
+Clinical: Mental disorders, therapy, treatment
+Personality: Traits, theories, assessment
+Neuroscience: Brain function, neural pathways
+
+========== SOCIOLOGY ==========
+Social structure: Institutions, stratification, hierarchy
+Culture: Norms, values, symbols, language
+Socialization: Family, education, peer groups
+Deviance: Crime, social control, labeling
+Demographics: Population, migration, urbanization
+Social change: Movements, revolutions, modernization
+
+========== ECONOMICS ==========
+Microeconomics: Supply, demand, markets, elasticity
+Macroeconomics: GDP, inflation, monetary policy
+International trade: Tariffs, agreements, globalization
+Finance: Stocks, bonds, derivatives, risk
+Development: Poverty, growth, inequality
+Behavioral economics: Decision making, heuristics
+
+========== POLITICAL SCIENCE ==========
+Governance: Democracy, authoritarianism, systems
+International relations: Diplomacy, conflict, cooperation
+Public policy: Making, implementation, evaluation
+Political theory: Power, legitimacy, citizenship
+
+========== ARTS ==========
+Visual arts: Painting, sculpture, photography
+Literature: Poetry, fiction, drama
+Music: Theory, composition, performance
+Film: Production, direction, criticism
+Architecture: Design, styles, urban planning
+Dance: Movement, choreography, cultural forms
+
+========== LANGUAGES ==========
+English: Grammar, vocabulary, literature
+Linguistics: Phonetics, syntax, semantics
+Second language acquisition: Methods, learning theories
+Translation: Interpretation, localization
+
+========== MEDICINE ==========
+Anatomy: Body structures, systems
+Pathology: Diseases, mechanisms, diagnosis
+Pharmacology: Drugs, interactions, therapeutics
+Surgery: Procedures, techniques, technology
+Public health: Epidemiology, prevention, policy
+
+========== ENVIRONMENT ==========
+Ecology: Ecosystems, biodiversity, conservation
+Climate science: Greenhouse effect, global warming
+Sustainability: Resources, recycling, renewable energy
+Environmental policy: Regulations, treaties, activism
+
+========== SPORTS ==========
+Team sports: Football, basketball, soccer, baseball
+Individual sports: Tennis, golf, swimming, athletics
+Olympics: History, events, athletes
+Sports science: Training, nutrition, psychology
+
+========== FOOD & CULINARY ==========
+Cuisines: World cuisines, regional specialties
+Cooking techniques: Methods, tools, recipes
+Nutrition: Macronutrients, micronutrients, diet
+Food science: Preservation, safety, chemistry
+
+========== RELIGION ==========
+World religions: Christianity, Islam, Hinduism, Buddhism, Judaism
+Religious texts: Bible, Quran, Bhagavad Gita, Torah
+Theology: God, faith, salvation, afterlife
+Religious history: Origins, development, conflicts
+
+========== MYTHOLOGY ==========
+Greek mythology: Gods, heroes, myths
+Norse mythology: Vikings, Valhalla, Thor
+Egyptian mythology: Pharaohs, afterlife, gods
+Myths worldwide: Creation stories, legends
+
+========== GEOGRAPHY ==========
+Physical geography: Landforms, climate, biomes
+Human geography: Population, culture, economics
+Cartography: Maps, GIS, navigation
+Regions: Continents, countries, territories
+
+========== BUSINESS ==========
+Management: Organizations, leadership, strategy
+Marketing: Consumer behavior, branding, advertising
+Accounting: Financial statements, auditing, taxation
+Entrepreneurship: Startups, innovation, venture capital
+
+========== LAW ==========
+Constitutional law: Rights, separation of powers
+Criminal law: Crimes, prosecution, defense
+Civil law: Contracts, torts, family law
+International law: Treaties, human rights, war
+
+========== EDUCATION ==========
+Learning theories: Behaviorism, cognitivism, constructivism
+Pedagogy: Teaching methods, classroom management
+Educational technology: E-learning, platforms, tools
+Assessment: Testing, evaluation, grading
+
+========== TECHNOLOGY ==========
+Emerging tech: AI, blockchain, quantum, biotech
+Energy tech: Solar, wind, nuclear, batteries
+Transportation: Electric vehicles, hyperloop, drones
+Communication: 5G, satellites, fiber optics
+
+========== SPACE TECH ==========
+Rocket science: Propulsion, orbits, trajectories
+Satellites: Communications, GPS, observation
+Space stations: ISS, modules, life support
+Future missions: Mars, Moon bases, asteroid mining
+
+========== AI & ROBOTICS ==========
+AI fundamentals: Machine learning, neural networks
+NLP: Language models, transformers, chatbots
+Computer vision: Object detection, image recognition
+Robotics: Industrial robots, autonomous systems, humanoids
+
+========== CURRENT EVENTS ==========
+Global issues: Climate change, pandemics, conflicts
+Technology trends: AI developments, space exploration
+Economic news: Markets, trade, innovation
+Scientific breakthroughs: Discoveries, research
+
+========== GENERAL KNOWLEDGE ==========
+Facts about the world, countries, capitals, currencies
+Historical dates, famous people, important events
+Scientific constants, measurements, units
+Common knowledge, trivia, fun facts
+
+========== WISDOM & PHILOSOPHY ==========
+Life lessons: Growth, resilience, purpose
+Ethical principles: Honesty, kindness, justice
+Critical thinking: Analysis, evaluation, reasoning
+Problem solving: Approaches, strategies, creativity
