@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Safe AI Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            color: #888;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        
+        .chat-box {
+            background: #16213e;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            text-align: right;
+        }
+        
+        .user-message .bubble {
+            background: #0f3460;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 18px 18px 4px 18px;
+            display: inline-block;
+            max-width: 80%;
+        }
+        
+        .ai-message {
+            text-align: left;
+        }
+        
+        .ai-message .bubble {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 18px 18px 18px 4px;
+            display: inline-block;
+            max-width: 85%;
+            border-left: 3px solid #00d4ff;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #16213e;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        input[type="text"]::placeholder {
+            color: #666;
+        }
+        
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 2px #00d4ff;
+        }
+        
+        button {
+            padding: 15px 25px;
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            background: #00b8e6;
+        }
+        
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        
+        .quick-btn {
+            padding: 8px 16px;
+            background: #0f3460;
+            color: #00d4ff;
+            border: 1px solid #00d4ff;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-btn:hover {
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+        
+        .footer {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Safe AI Chatbot</h1>
+        <p class="subtitle">Friendly • Informative • Safe</p>
+        
+        <div class="quick-buttons">
+            <button class="quick-btn" onclick="ask('Tell me about AI')">About AI</button>
+            <button class="quick-btn" onclick="ask('What can you do?')">Capabilities</button>
+            <button class="quick-btn" onclick="ask('Tell me about the brain')">Brain Facts</button>
+            <button class="quick-btn" onclick="ask('What is deep learning?')">Deep Learning</button>
+            <button class="quick-btn" onclick="ask('Tell me about space')">Space Facts</button>
+        </div>
+        
+        <div class="chat-box" id="chatBox">
+            <div class="message ai-message">
+                <div class="bubble">👋 Hello! I'm a friendly AI assistant. I can talk about AI, science, technology, and more! What would you like to chat about?</div>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter')sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+        
+        <p class="footer">🔒 Safe by design - No external access • No code execution • Friendly only</p>
+    </div>
+
+    <script>
+        // Safe knowledge base - no external access, no dangerous content
+        const knowledge = {
+            'hello': "Hello! 👋 I'm a friendly AI assistant. I can talk about AI, science, technology, and more!",
+            'hi': "Hi there! 😊 How can I help you today?",
+            'hey': "Hey! ✨ What's on your mind?",
+            'how are you': "I'm doing great, thanks for asking! 😊 I love helping people learn about AI and science!",
+            
+            'what are you': "I'm an AI chatbot! I'm built using neural networks and trained on various topics. I'm designed to be friendly and helpful!",
+            'who are you': "I'm a Safe AI Chatbot! I can answer questions about AI, machine learning, science, and more. I cannot access the internet or run code - I'm purely conversational!",
+            
+            'ai': "Artificial Intelligence (AI) is the simulation of human intelligence by machines. It includes machine learning, neural networks, and deep learning!",
+            'artificial intelligence': "Artificial Intelligence is the simulation of human intelligence by machines. It includes things like machine learning, neural networks, and natural language processing!",
+            
+            'machine learning': "Machine learning is a type of AI where computers learn from data without being explicitly programmed. It's used for recommendations, predictions, and more!",
+            'ml': "Machine learning is a type of AI where computers learn from data without being explicitly programmed. It's used for recommendations, predictions, and more!",
+            
+            'neural network': "Neural networks are computer systems inspired by the human brain. They have 'neurons' (like nodes) connected together that learn patterns!",
+            'neural': "Neural networks are computer systems inspired by the human brain. They have 'neurons' (like nodes) connected together that learn patterns!",
+            
+            'deep learning': "Deep learning uses neural networks with many layers. It's behind things like image recognition, speech assistants, and translation!",
+            'transformer': "Transformers are a type of deep learning architecture that powers modern AI like ChatGPT. They use 'attention' to understand context!",
+            
+            'python': "Python is a popular programming language for AI and data science. It's known for being easy to read and having great libraries!",
+            
+            'brain': "The human brain has about 86 billion neurons! It processes information at incredible speeds and uses only about 20 watts of power.",
+            'human brain': "The human brain has about 86 billion neurons! It processes information at incredible speeds and uses only about 20 watts of power.",
+            
+            'sun': "The sun is a star at the center of our solar system. It's about 4.6 billion years old and makes up 99.86% of our solar system's mass!",
+            'water': "Water is essential for life! About 71% of Earth's surface is covered in water, but only 3% is fresh.",
+            'light': "Light travels at about 299,792 km/s - nothing can go faster!",
+            'ocean': "The ocean contains about 97% of Earth's water. It's home to millions of species!",
+            'space': "The universe is incredibly vast - there are more stars than grains of sand on all of Earth's beaches!",
+            
+            'what can you do': "I can: chat about AI & science, explain concepts, answer questions, be a friendly conversation partner! I cannot: access the internet, run code, or store personal info. Safe! 📚",
+            'capabilities': "I can: talk, answer questions, explain concepts, be friendly! I cannot: execute commands, access files, or do anything that could be harmful. Safety first! 🛡️",
+            'limitations': "I can only use the information I've been given. I can't look things up or learn new things during our conversation. But I'm always happy to help with what I know! 😊",
+            
+            'help': "I can help with: explaining AI concepts, science facts, general conversation. Just ask! 😊",
+            'thanks': "You're welcome! 😊 Happy to help!",
+            'thank you': "No problem! 😊 Anytime!",
+            
+            'store': "I have a digital products store! You can check it out at: https://loran4vr.github.io/jekstore/",
+            'bitcoin': "Bitcoin is a decentralized digital currency. It uses blockchain technology! 💰",
+            'money': "Money is interesting! There's a lot we could discuss about economics, but let's keep it friendly! 😊",
+            
+            'joke': "Why did the AI cross the road? To optimize its path! 😄 Actually, AIs don't usually cross roads... but they can help you cross data!",
+            'funny': "Here's a tech joke: Why do programmers prefer dark mode? Because light attracts bugs! 🐛😂",
+            
+            'default': [
+                "That's interesting! Tell me more about what you're thinking about.",
+                "I see! That's a cool topic. What would you like to know more about?",
+                "Fascinating! I love learning what people are interested in.",
+                "Great question! There's a lot to explore there.",
+                "I appreciate you chatting with me! What else is on your mind?",
+                "That's a thoughtful point! I'd love to hear more.",
+                "Interesting! I learn so much from conversations like this.",
+                "I see you have curious mind! What else would you like to explore?",
+            ]
+        };
+        
+        const defaultResponses = [
+            "That's interesting! Tell me more about what you're thinking about.",
+            "I see! That's a cool topic. What would you like to know more about?",
+            "Fascinating! I love learning what people are interested in.",
+            "Great question! There's a lot to explore there.",
+            "I appreciate you chatting with me! What else is on your mind?",
+        ];
+        
+        function ask(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Get response
+            const response = getResponse(message);
+            
+            // Add AI response
+            setTimeout(() => {
+                addMessage(response, 'ai');
+            }, 300);
+        }
+        
+        function addMessage(text, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.textContent = text;
+            
+            messageDiv.appendChild(bubble);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        function getResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check each keyword
+            for (const [keyword, response] of Object.entries(knowledge)) {
+                if (lowerMessage.includes(keyword)) {
+                    if (Array.isArray(response)) {
+                        return response[Math.floor(Math.random() * response.length)];
+                    }
+                    return response;
+                }
+            }
+            
+            // Default response
+            return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+    </script>
+</body>
+</html>
