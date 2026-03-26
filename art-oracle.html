@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Art Oracle - Unique Generative Art</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+        
+        canvas {
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 100, 100, 0.3);
+        }
+        
+        button {
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        p {
+            color: #888;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="art" width="500" height="500"></canvas>
+    <button onclick="generate()">🎨 Create New Art</button>
+    <p>Each piece is unique - based on cosmic time!</p>
+    
+    <script>
+        const canvas = document.getElementById('art');
+        const ctx = canvas.getContext('2d');
+        
+        function generate() {
+            const now = new Date();
+            const seed = now.getHours() * 3600000 + now.getMinutes() * 60000 + now.getSeconds() * 1000 + now.getMilliseconds();
+            
+            // Background
+            const bgHue = seed % 360;
+            ctx.fillStyle = `hsl(${bgHue}, 30%, 10%)`;
+            ctx.fillRect(0, 0, 500, 500);
+            
+            // Generate patterns based on seed
+            const numShapes = 20 + (seed % 30);
+            
+            for (let i = 0; i < numShapes; i++) {
+                const x = (seed * (i + 1) * 7) % 500;
+                const y = (seed * (i + 1) * 13) % 500;
+                const size = 20 + (seed * (i + 1)) % 100;
+                const hue = (bgHue + (seed * i) % 180) % 360;
+                
+                ctx.fillStyle = `hsla(${hue}, 70%, 50%, ${0.3 + (i % 5) * 0.1})`;
+                
+                if ((seed + i) % 3 === 0) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if ((seed + i) % 3 === 1) {
+                    ctx.fillRect(x - size/2, y - size/2, size, size);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y - size/2);
+                    ctx.lineTo(x + size/2, y + size/2);
+                    ctx.lineTo(x - size/2, y + size/2);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            }
+            
+            // Add glow
+            const gradient = ctx.createRadialGradient(250, 250, 0, 250, 250, 300);
+            gradient.addColorStop(0, `hsla(${bgHue}, 50%, 50%, 0.3)`);
+            gradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 500, 500);
+        }
+        
+        generate();
+    </script>
+</body>
+</html>

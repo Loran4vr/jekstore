@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔮 Cosmic Oracle - Your Unique Reading</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #e0d4b8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+            to { text-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+        
+        .subtitle {
+            color: #a89f91;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+        
+        button {
+            padding: 20px 40px;
+            font-size: 1.2em;
+            font-family: inherit;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a0a0a;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            color: #ffd700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            font-size: 1.3em;
+            color: #fff;
+        }
+        
+        .star-sign {
+            font-size: 2em;
+            color: #ffd700;
+        }
+        
+        .numbers {
+            font-size: 1.5em;
+            letter-spacing: 5px;
+            color: #ffd700;
+        }
+        
+        .insight {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            color: #fff;
+            margin-top: 20px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.8em;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 Cosmic Oracle</h1>
+        <p class="subtitle">Your unique reading - changes every second</p>
+        
+        <button onclick="reveal()">Reveal My Fortune</button>
+        
+        <div class="result" id="result">
+            <div class="card">
+                <h3>⭐ Your Star Sign</h3>
+                <p class="star-sign" id="starSign">-</p>
+            </div>
+            
+            <div class="card">
+                <h3>🌊 Your Element</h3>
+                <p id="element">-</p>
+            </div>
+            
+            <div class="card">
+                <h3>🌅 Rising Sign</h3>
+                <p id="rising">-</p>
+            </div>
+            
+            <div class="card">
+                <h3>🔢 Your Lucky Numbers</h3>
+                <p class="numbers" id="numbers">-</p>
+            </div>
+            
+            <div class="card">
+                <h3>🐾 Your Spirit Animal</h3>
+                <p id="animal">-</p>
+            </div>
+            
+            <div class="card">
+                <h3>💼 Your Path</h3>
+                <p id="career">-</p>
+            </div>
+            
+            <div class="insight" id="insight">
+                -
+            </div>
+        </div>
+        
+        <p class="footer">Every click generates a unique reading based on cosmic time</p>
+    </div>
+
+    <script>
+        const stars = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", 
+                       "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+        const elements = ["Fire", "Earth", "Air", "Water"];
+        const animals = ["Phoenix", "Wolf", "Elephant", "Dolphin", "Owl", "Tiger", "Bear"];
+        const careers = ["AI & Technology", "Arts & Design", "Science & Research", 
+                        "Business & Finance", "Healthcare", "Education", "Entertainment"];
+        const insights = [
+            "A creative breakthrough awaits",
+            "Trust your intuition today",
+            "A connection from your past reaches out",
+            "New opportunities are emerging",
+            "Your patience will be rewarded",
+            "Financial abundance is coming",
+            "Love and harmony are in your future",
+            "Your hard work is about to pay off",
+            "A surprise gift is coming your way"
+        ];
+        
+        function reveal() {
+            const now = new Date();
+            const seed = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds();
+            
+            document.getElementById('starSign').textContent = stars[seed % 12];
+            document.getElementById('element').textContent = elements[(seed / 12) % 4 | 0];
+            document.getElementById('rising').textContent = stars[(seed * 7) % 12];
+            
+            // Lucky numbers
+            let nums = [];
+            let s = seed;
+            for (let i = 0; i < 5; i++) {
+                nums.push((s % 99) + 1);
+                s = (s * 7 + 3) % 1000000;
+            }
+            document.getElementById('numbers').textContent = nums.join('   ');
+            
+            document.getElementById('animal').textContent = animals[seed % 7];
+            document.getElementById('career').textContent = careers[seed % 7];
+            document.getElementById('insight').textContent = insights[seed % 9];
+            
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
