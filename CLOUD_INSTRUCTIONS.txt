@@ -1,0 +1,31 @@
+
+☁️ TO TRAIN ON CLOUD (FREE GPU):
+
+OPTION 1: Google Colab (Easiest)
+--------------------------------
+1. Go to: https://colab.research.google.com
+2. Click "New Notebook"
+3. Paste code from cloud_lm.py
+4. Click Runtime → Change Runtime Type → Select GPU
+5. Press Play
+
+OPTION 2: Kaggle
+----------------
+1. Go to: https://kaggle.com/notebooks
+2. Create new notebook
+3. Enable GPU in settings
+4. Run the code
+
+OPTION 3: Gradient
+------------------
+1. Go to: https://gradient.run
+2. Create notebook with GPU
+3. Run the code
+
+To Scale Up:
+------------
+Edit these values in cloud_lm.py:
+- d_model: 128 → 512 (or 1024)
+- n_layers: 2 → 6 (or 12)  
+- n_heads: 4 → 8 (or 16)
+- Add more training data

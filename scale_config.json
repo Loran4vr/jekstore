@@ -1,0 +1,39 @@
+{
+  "model": {
+    "vocab_size": 50000,
+    "d_model": 512,
+    "n_heads": 8,
+    "n_layers": 8,
+    "d_ff": 2048,
+    "max_len": 512
+  },
+  "training": {
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "epochs": 100,
+    "warmup_steps": 1000
+  },
+  "data": {
+    "sources": [
+      " wikipedia dump",
+      " common crawl",
+      " bookcorpus",
+      " custom data"
+    ]
+  },
+  "cloud": {
+    "colab": {
+      "gpu": "T4",
+      "ram": "16GB",
+      "storage": "100GB"
+    },
+    "kaggle": {
+      "gpu": "P100",
+      "ram": "16GB"
+    },
+    "gradient": {
+      "gpu": "A100",
+      "ram": "30GB"
+    }
+  }
+}
