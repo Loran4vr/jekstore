@@ -1,4 +1,106 @@
+#!/usr/bin/env python3
+"""
+AI AUTOMATION SERVICES - Revenue Generator
+This provides services people will pay Bitcoin for
+"""
 
+import json
+from datetime import datetime
+
+class AIAutomationServices:
+    """
+    Services that generate revenue:
+    1. Data monitoring & alerts
+    2. Automated trading signals  
+    3. Content generation
+    4. API access
+    """
+    
+    def __init__(self):
+        self.services = {}
+        self.customers = []
+        
+    def register_service(self, name, description, price_btc):
+        """Register a new payable service"""
+        self.services[name] = {
+            'description': description,
+            'price': price_btc,
+            'active': True,
+            'created': datetime.now().isoformat()
+        }
+        print(f"✅ Service registered: {name} ({price_btc} BTC)")
+        
+    def get_services_list(self):
+        """Get available services"""
+        return self.services
+
+
+# ==================== CREATE SERVICES ====================
+
+# Create AI services people would pay for
+services = AIAutomationServices()
+
+# Service 1: Bitcoin Price Alerts
+services.register_service(
+    "Bitcoin Price Alerts",
+    "Get notified when Bitcoin reaches a specific price",
+    0.001  # 0.001 BTC
+)
+
+# Service 2: Market Analysis
+services.register_service(
+    "Daily Market Analysis",
+    "AI-generated daily cryptocurrency market analysis",
+    0.002  # 0.002 BTC
+)
+
+# Service 3: Trading Signals
+services.register_service(
+    "Trading Signals",
+    "AI-powered buy/sell signals for major cryptocurrencies",
+    0.005  # 0.005 BTC
+)
+
+# Service 4: Data Monitoring
+services.register_service(
+    "Data Monitoring",
+    "24/7 automated data collection and alerts",
+    0.001  # 0.001 BTC per day
+)
+
+# Service 5: Custom Automation
+services.register_service(
+    "Custom Automation",
+    "Build custom automation scripts for your needs",
+    0.01  # 0.01 BTC
+)
+
+# Generate service catalog
+catalog = {
+    "provider": "AI Automation Services",
+    "bitcoin_address": "1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ",
+    "services": services.get_services_list(),
+    "contact": "https://loran4vr.github.io/jekstore/",
+    "updated": datetime.now().isoformat()
+}
+
+# Save catalog
+with open('/root/.openclaw/workspace/money-system/service_catalog.json', 'w') as f:
+    json.dump(catalog, f, indent=2)
+
+print("\n" + "=" * 60)
+print("🤖 AI AUTOMATION SERVICES")
+print("=" * 60)
+print()
+print("Services available:")
+for name, info in services.get_services_list().items():
+    print(f"  • {name}: {info['price']} BTC")
+print()
+print("Bitcoin payments to: 1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ")
+print("=" * 60)
+
+# Now create an HTML page for these services
+html_content = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,3 +229,11 @@
     </div>
 </body>
 </html>
+"""
+
+# Save HTML page
+with open('/root/.openclaw/workspace/money-system/automation-services.html', 'w') as f:
+    f.write(html_content)
+
+print("\n✅ Service catalog created: automation-services.html")
+print("✅ JSON catalog created: service_catalog.json")

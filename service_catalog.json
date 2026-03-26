@@ -1,0 +1,38 @@
+{
+  "provider": "AI Automation Services",
+  "bitcoin_address": "1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ",
+  "services": {
+    "Bitcoin Price Alerts": {
+      "description": "Get notified when Bitcoin reaches a specific price",
+      "price": 0.001,
+      "active": true,
+      "created": "2026-03-26T20:22:24.882912"
+    },
+    "Daily Market Analysis": {
+      "description": "AI-generated daily cryptocurrency market analysis",
+      "price": 0.002,
+      "active": true,
+      "created": "2026-03-26T20:22:24.882956"
+    },
+    "Trading Signals": {
+      "description": "AI-powered buy/sell signals for major cryptocurrencies",
+      "price": 0.005,
+      "active": true,
+      "created": "2026-03-26T20:22:24.882960"
+    },
+    "Data Monitoring": {
+      "description": "24/7 automated data collection and alerts",
+      "price": 0.001,
+      "active": true,
+      "created": "2026-03-26T20:22:24.882964"
+    },
+    "Custom Automation": {
+      "description": "Build custom automation scripts for your needs",
+      "price": 0.01,
+      "active": true,
+      "created": "2026-03-26T20:22:24.882966"
+    }
+  },
+  "contact": "https://loran4vr.github.io/jekstore/",
+  "updated": "2026-03-26T20:22:24.882969"
+}
