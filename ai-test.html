@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI or Human? - Viral Test!</title>
+    <meta property="og:title" content="🤖 Can you tell AI from human? Take the test!">
+    <meta property="og:description" content="I'm scoring 95%... Can you beat me?">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --green: #3fb950; --red: #f85149; --gold: #f0b429; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; min-height: 100vh; }
+        
+        header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #58a6ff, #a855f7); }
+        .logo { font-size: 3rem; }
+        
+        .container { max-width: 600px; margin: 0 auto; padding: 30px 20px; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; text-align: center; }
+        
+        .score { font-size: 4rem; font-weight: bold; color: var(--gold); }
+        .score-label { color: var(--muted); }
+        
+        .options { display: flex; gap: 15px; margin: 20px 0; }
+        .option { flex: 1; padding: 20px; border-radius: 15px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border: 3px solid var(--border); background: var(--primary); color: white; }
+        .option:hover { border-color: var(--accent); }
+        .option.ai { background: #7c3aed; border-color: #7c3aed; }
+        .option.human { background: #10b981; border-color: #10b981; }
+        
+        .result { font-size: 2rem; margin: 20px 0; }
+        .correct { color: var(--green); }
+        .wrong { color: var(--red); }
+        
+        .share-btns { margin: 30px 0; }
+        .share-btn { display: inline-block; padding: 14px 28px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; margin: 5px; }
+        .twitter { background: #1da1f2; }
+        .whatsapp { background: #25d366; }
+        
+        .footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🤖</div>
+        <h1 style="color:white;margin-top:10px;">AI or Human?</h1>
+        <p style="color:white;opacity:0.9;">Can you tell which was written by AI?</p>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <div class="score-label">YOUR SCORE</div>
+            <div class="score" id="score">0</div>
+            <p style="color:var(--muted);">out of <span id="total">0</span> questions</p>
+        </div>
+        
+        <div class="card" id="questionCard">
+            <h2 style="color:white;margin-bottom:20px;">Question <span id="qNum">1</span></h2>
+            <div class="image-box">
+                <p style="font-size:1.3rem;font-style:italic;" id="questionText">"The sunset painted the sky in shades of orange and pink, like watercolors on wet paper."</p>
+            </div>
+            <p style="color:var(--muted);margin:15px 0;">Was this written by AI or Human?</p>
+            
+            <div class="options">
+                <button class="option ai" onclick="answer(true)">🤖 AI</button>
+                <button class="option human" onclick="answer(false)">👤 Human</button>
+            </div>
+        </div>
+        
+        <div class="card" id="resultCard" style="display:none;">
+            <div class="result" id="resultText"></div>
+            <p id="resultDesc" style="color:var(--muted);"></p>
+            
+            <div class="share-btns">
+                <p style="color:white;margin-bottom:15px;">🤑 Challenge your friends!</p>
+                <a href="#" id="shareTwitter" class="share-btn twitter" target="_blank">🐦 Share on Twitter</a>
+                <a href="#" id="shareWhatsApp" class="share-btn whatsapp" target="_blank">💬 WhatsApp</a>
+            </div>
+            
+            <button class="option" style="width:100%;margin-top:20px;background:var(--accent);" onclick="restart()">🔄 Play Again</button>
+        </div>
+        
+        <div class="card">
+            <h3>🔥 Trending:</h3>
+            <p style="color:var(--muted);margin-top:10px;">This test is going viral! Can you beat 95%?</p>
+            <a href="store.html" style="display:inline-block;margin-top:15px;padding:14px 28px;background:var(--gold);color:var(--primary);border-radius:10px;text-decoration:none;font-weight:bold;">🛒 Check Our Store</a>
+        </div>
+    </div>
+    
+    <footer>
+        <p>🤖 AI or Human? | <a href="store.html" style="color:var(--accent);">Visit Store</a></p>
+    </footer>
+    
+    <script>
+        const questions = [
+            { text: "The coffee tasted like memories of summer mornings, warm and bittersweet.", isAI: true },
+            { text: "I woke up at 7am, had eggs for breakfast, then went to work.", isAI: false },
+            { text: "The algorithm whispered secrets of the universe through lines of code.", isAI: true },
+            { text: "Yesterday I went to the store and bought some milk.", isAI: false },
+            { text: "Stars are basically nuclear explosions frozen in time, beautiful yet deadly.", isAI: true },
+            { text: "I love spending time with my family during holidays.", isAI: false },
+            { text: "Quantum entanglement suggests particles can communicate across vast distances instantaneously.", isAI: true },
+            { text: "The cat sat on the mat because it was tired.", isAI: false },
+            { text: "Every sunset is a promise of a new dawn, a reset button for the soul.", isAI: true },
+            { text: "My dog needs to go for a walk every evening.", isAI: false }
+        ];
+        
+        let currentQ = 0;
+        let score = 0;
+        
+        function answer(isAI) {
+            const q = questions[currentQ];
+            const correct = (q.isAI === isAI);
+            
+            if (correct) {
+                score++;
+                document.getElementById('score').textContent = score;
+            }
+            
+            currentQ++;
+            document.getElementById('total').textContent = currentQ + 1;
+            
+            if (currentQ >= questions.length) {
+                showResult();
+            } else {
+                document.getElementById('qNum').textContent = currentQ + 1;
+                document.getElementById('questionText').textContent = '"' + questions[currentQ].text + '"';
+            }
+        }
+        
+        function showResult() {
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('resultCard').style.display = 'block';
+            
+            const percent = Math.round((score / questions.length) * 100);
+            const resultText = document.getElementById('resultText');
+            const resultDesc = document.getElementById('resultDesc');
+            
+            if (percent >= 90) {
+                resultText.textContent = "🏆 GENIUS!";
+                resultDesc.textContent = "You can definitely tell AI from human!";
+            } else if (percent >= 70) {
+                resultText.textContent = "🎉 Great job!";
+                resultDesc.textContent = "You're pretty good at this!";
+            } else {
+                resultText.textContent = "🤔 Keep trying!";
+                resultDesc.textContent = "AI is getting better at copying humans...";
+            }
+            
+            const shareText = encodeURIComponent(`🤖 I scored ${percent}% on "AI or Human?"! Can you beat me? ${window.location.href}`);
+            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${shareText}`;
+            document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${shareText}`;
+        }
+        
+        function restart() {
+            currentQ = 0;
+            score = 0;
+            document.getElementById('score').textContent = '0';
+            document.getElementById('total').textContent = '0';
+            document.getElementById('questionCard').style.display = 'block';
+            document.getElementById('resultCard').style.display = 'none';
+            document.getElementById('qNum').textContent = '1';
+            document.getElementById('questionText').textContent = '"' + questions[0].text + '"';
+        }
+    </script>
+</body>
+</html>

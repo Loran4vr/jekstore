@@ -80,6 +80,7 @@ Current BTC price ~$65,000 USD
 | Date | Time (UTC) | Product | TX ID | Amount | Status |
 |------|------------|---------|-------|--------|--------|
 | 2026-03-24 | 13:15 | - | - | 0 BTC | No sales yet |
+| 2026-03-25 | 21:58 | - | - | 0 BTC | Store down (503) - Netlify paused |
 
 ### Revenue Goal:
 - Daily: $200
@@ -166,6 +167,11 @@ jekstore.netlify.app
 - Problem: Site reached usage limits, Netlify paused it
 - Date: 2026-03-24 20:15 UTC
 - Details: Site not available at jekstore.netlify.app
+
+### Issue: Store still paused - needs plan upgrade
+- Status: ⚠️ PENDING
+- Problem: Site remains paused, needs Netlify plan upgrade
+- Last Check: 2026-03-25 21:58 UTC - Store returns 503
 
 ---
 

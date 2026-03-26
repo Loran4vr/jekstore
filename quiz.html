@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 What [X] Are You? - Viral Quiz</title>
+    <meta property="og:title" content="🎯 I got [RESULT]! What are you?">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --green: #3fb950; --gold: #f0b429; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        
+        header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--gold), var(--accent)); }
+        .logo { font-size: 3rem; }
+        
+        .container { max-width: 550px; margin: 0 auto; padding: 30px 20px; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; text-align: center; }
+        
+        .type-card { background: linear-gradient(135deg, var(--accent), #a855f7); border-radius: 20px; padding: 30px; margin: 20px 0; }
+        .type-emoji { font-size: 4rem; }
+        .type-name { font-size: 2rem; font-weight: bold; color: white; margin: 15px 0; }
+        .type-desc { color: white; opacity: 0.9; }
+        
+        .option { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); background: var(--primary); color: white; font-size: 1rem; margin-bottom: 10px; cursor: pointer; text-align: left; }
+        .option:hover { border-color: var(--accent); background: rgba(88,166,255,0.1); }
+        
+        .progress { height: 8px; background: var(--border); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--green); transition: width 0.3s; }
+        
+        .share-btns { margin: 20px 0; }
+        .share-btn { display: inline-block; padding: 12px 24px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; margin: 5px; }
+        .twitter { background: #1da1f2; }
+        .whatsapp { background: #25d366; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🎯</div>
+        <h1 style="color:white;margin-top:10px;">What Entrepreneur Are You?</h1>
+        <p style="color:white;opacity:0.9;">Take the quiz to find out!</p>
+    </header>
+    
+    <div class="container">
+        <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        
+        <div class="card" id="questionCard">
+            <h2 style="color:white;margin-bottom:20px;" id="qTitle">Question 1</h2>
+            
+            <button class="option" onclick="answer(0)">🚀 Go big or go home</button>
+            <button class="option" onclick="answer(1)">💰 Secure the bag</button>
+            <button class="option" onclick="answer(2)">🤝 Build with others</button>
+            <button class="option" onclick="answer(3)">🔮 Think long term</button>
+        </div>
+        
+        <div class="card" id="resultCard" style="display:none;">
+            <div class="type-card">
+                <div class="type-emoji" id="resultEmoji">🚀</div>
+                <div class="type-name" id="resultName">The Visionary</div>
+                <div class="type-desc" id="resultDesc">You see opportunities others miss!</div>
+            </div>
+            
+            <div class="share-btns">
+                <p style="color:white;margin-bottom:15px;">🔥 Share your result!</p>
+                <a href="#" id="shareTwitter" class="share-btn twitter" target="_blank">🐦 Twitter</a>
+                <a href="#" id="shareWhatsApp" class="share-btn whatsapp" target="_blank">💬 WhatsApp</a>
+            </div>
+            
+            <button class="option" style="text-align:center;background:var(--accent);" onclick="restart()">🔄 Take Again</button>
+            
+            <div style="margin-top:20px;">
+                <a href="store.html" style="display:inline-block;padding:14px 28px;background:var(--gold);color:var(--primary);border-radius:10px;text-decoration:none;font-weight:bold;">🛒 Check Our Store</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const questions = [
+            {
+                q: "What's your approach to risk?",
+                options: ["🚀 Go big or go home", "💰 Calculate everything", "🤝 Moderate risk", "🔮 Avoid big risks"]
+            },
+            {
+                q: "How do you get customers?",
+                options: ["🎯 Viral content", "💎 Quality products", "📢 Ads & outreach", "🔗 Networks"]
+            },
+            {
+                q: "What's your biggest strength?",
+                options: ["⚡ Speed", "📊 Analysis", "👥 Leadership", "💡 Ideas"]
+            },
+            {
+                q: "What do you value most?",
+                options: ["🏆 Impact", "💵 Profit", "🤝 Community", "🎯 Growth"]
+            }
+        ];
+        
+        const results = [
+            { emoji: "🚀", name: "The Visionary", desc: "You see the big picture and inspire others with bold ideas!" },
+            { emoji: "💎", name: "The Strategist", desc: "You calculate every move and maximize value!" },
+            { emoji: "🤝", name: "The Builder", desc: "You create lasting relationships and teams!" },
+            { emoji: "🔮", name: "The Architect", desc: "You think long-term and build sustainable empires!" }
+        ];
+        
+        let currentQ = 0;
+        let scores = [0, 0, 0, 0];
+        
+        function answer(type) {
+            scores[type]++;
+            currentQ++;
+            
+            const progress = (currentQ / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            if (currentQ >= questions.length) {
+                showResult();
+            } else {
+                showQuestion();
+            }
+        }
+        
+        function showQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('qTitle').textContent = 'Question ' + (currentQ + 1);
+            
+            const buttons = document.querySelectorAll('.option');
+            buttons.forEach((btn, i) => {
+                btn.textContent = q.options[i];
+            });
+        }
+        
+        function showResult() {
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('resultCard').style.display = 'block';
+            
+            // Find max score
+            let maxScore = 0;
+            let resultIndex = 0;
+            for (let i = 0; i < 4; i++) {
+                if (scores[i] > maxScore) {
+                    maxScore = scores[i];
+                    resultIndex = i;
+                }
+            }
+            
+            const result = results[resultIndex];
+            document.getElementById('resultEmoji').textContent = result.emoji;
+            document.getElementById('resultName').textContent = result.name;
+            document.getElementById('resultDesc').textContent = result.desc;
+            
+            const shareText = encodeURIComponent(`🎯 I got "${result.name}" in the Entrepreneur Quiz!\n\n${result.desc}\n\nWhat's your type? ${window.location.href}`);
+            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${shareText}`;
+            document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${shareText}`;
+        }
+        
+        function restart() {
+            currentQ = 0;
+            scores = [0, 0, 0, 0];
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('resultCard').style.display = 'none';
+            document.getElementById('questionCard').style.display = 'block';
+            showQuestion();
+        }
+        
+        showQuestion();
+    </script>
+</body>
+</html>

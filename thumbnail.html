@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thumbnail Generator</title>
+    <style>
+        body { background: linear-gradient(135deg, #ff6b9d, #c084fc); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: sans-serif; }
+        .thumbnail { width: 1280px; height: 720px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 10px solid white; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        .emoji { font-size: 150px; }
+        .main-text { font-size: 120px; font-weight: bold; color: white; text-shadow: 5px 5px 0 #000, -5px -5px 0 #000, 5px -5px 0 #000, -5px 5px 0 #000; text-align: center; }
+        .sub-text { font-size: 50px; color: #ffd700; text-shadow: 3px 3px 0 #000; }
+        .channel { position: absolute; bottom: 30px; right: 40px; font-size: 30px; color: white; opacity: 0.8; }
+        .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 120px; opacity: 0.9; }
+        button { padding: 20px 40px; font-size: 24px; margin: 20px; cursor: pointer; background: white; border: none; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="thumbnail" id="thumb">
+        <div class="emoji">👀</div>
+        <div class="main-text">AI Guessed<br>My AGE?!</div>
+        <div class="sub-text">I Was NOT Ready... 😱</div>
+        <div class="play">▶</div>
+        <div class="channel">@YourChannel</div>
+    </div>
+    <button onclick="document.getElementById('thumb').style.display='none';window.print()">Save Thumbnail</button>
+</body>
+</html>

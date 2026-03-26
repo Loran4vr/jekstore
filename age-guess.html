@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👀 How Old Do I Look? - AI Age Guesser</title>
+    <meta property="og:title" content="👀 AI says I look like this age...">
+    <meta property="og:description" content="Try the viral AI age guesser!">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0d1117; --secondary: #161b22; --accent: #58a6ff; --green: #3fb950; --gold: #f0b429; --pink: #ec4899; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; }
+        body { font-family: -apple-system, sans-serif; background: var(--primary); color: var(--text); line-height: 1.6; }
+        
+        header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, var(--pink), var(--accent)); }
+        .logo { font-size: 3rem; }
+        
+        .container { max-width: 500px; margin: 0 auto; padding: 30px 20px; }
+        
+        .card { background: var(--secondary); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; text-align: center; }
+        
+        .age-display { font-size: 6rem; font-weight: bold; color: var(--gold); text-shadow: 0 0 30px var(--gold); }
+        .age-label { color: var(--muted); font-size: 1.2rem; }
+        
+        .input { width: 100%; padding: 16px; border-radius: 12px; border: 2px solid var(--border); background: var(--primary); color: white; font-size: 1.1rem; margin-bottom: 15px; }
+        
+        .btn { width: 100%; padding: 16px; background: var(--green); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        
+        .viral-count { background: var(--primary); padding: 15px; border-radius: 12px; margin: 20px 0; }
+        
+        .share-btns { margin: 20px 0; }
+        .share-btn { display: inline-block; padding: 12px 24px; border-radius: 10px; text-decoration: none; color: white; font-weight: bold; margin: 5px; }
+        .twitter { background: #1da1f2; }
+        .whatsapp { background: #25d366; }
+        .telegram { background: #0088cc; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">👀</div>
+        <h1 style="color:white;margin-top:10px;">AI Age Guesser</h1>
+        <p style="color:white;opacity:0.9;">How old do YOU look?</p>
+    </header>
+    
+    <div class="container">
+        <div class="card" id="inputCard">
+            <h2 style="color:white;margin-bottom:15px;">👤 Enter Your Name</h2>
+            <input type="text" id="nameInput" class="input" placeholder="Your name">
+            
+            <p style="color:var(--muted);margin-bottom:15px;">Select your vibe:</p>
+            <select id="vibe" class="input">
+                <option value="0">😎 Chill / Laid back</option>
+                <option value="1">💼 Professional</option>
+                <option value="2">🎮 Gamer</option>
+                <option value="3">🌸 Soft / Gentle</option>
+                <option value="4">🔥 Intense / Passionate</option>
+                <option value="5">🤓 Intellectual</option>
+                <option value="6">😴 Tired</option>
+                <option value="7">✨ Radiant</option>
+            </select>
+            
+            <button class="btn" onclick="guessAge()">🔮 Guess My Age!</button>
+        </div>
+        
+        <div class="card" id="resultCard" style="display:none;">
+            <p style="color:var(--muted);">Based on your vibe, AI thinks <span id="nameDisplay" style="color:white;font-weight:bold;"></span> looks like:</p>
+            
+            <div class="age-display" id="ageDisplay">23</div>
+            <div class="age-label">years old</div>
+            
+            <div class="viral-count">
+                <p>🔥 <span id="count">2.4M</span> people have been guessed today!</p>
+            </div>
+            
+            <h3 style="color:white;margin:20px 0;">📤 Share Your Age!</h3>
+            
+            <div class="share-btns">
+                <a href="#" id="shareTwitter" class="share-btn twitter" target="_blank">🐦 Twitter</a>
+                <a href="#" id="shareWhatsApp" class="share-btn whatsapp" target="_blank">💬 WhatsApp</a>
+                <a href="#" id="shareTelegram" class="share-btn telegram" target="_blank">✈️ Telegram</a>
+            </div>
+            
+            <button class="btn" onclick="restart()" style="background:var(--secondary);border:2px solid var(--border);margin-top:15px;">🔄 Try Again</button>
+            
+            <div style="margin-top:25px;">
+                <a href="store.html" style="display:inline-block;padding:14px 28px;background:var(--gold);color:var(--primary);border-radius:10px;text-decoration:none;font-weight:bold;">🛒 Visit Our Store</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function guessAge() {
+            const name = document.getElementById('nameInput').value.trim();
+            const vibe = parseInt(document.getElementById('vibe').value);
+            
+            if (!name) { alert('Enter your name!'); return; }
+            
+            // Seeded random based on name + vibe
+            let seed = 0;
+            for (let i = 0; i < name.length; i++) seed += name.charCodeAt(i);
+            seed += vibe;
+            
+            // Different age ranges based on vibe
+            const ageRanges = [
+                [18, 35], // chill
+                [25, 45], // professional  
+                [16, 28], // gamer
+                [15, 30], // soft
+                [20, 38], // intense
+                [22, 50], // intellectual
+                [25, 55], // tired
+                [16, 28]  // radiant
+            ];
+            
+            const [min, max] = ageRanges[vibe];
+            const age = min + (seed % (max - min));
+            
+            document.getElementById('nameDisplay').textContent = name;
+            document.getElementById('ageDisplay').textContent = age;
+            
+            // Random viral count
+            const count = (Math.random() * 5 + 1).toFixed(1);
+            document.getElementById('count').textContent = count + 'M';
+            
+            // Update share links
+            const shareText = encodeURIComponent(`👀 AI says I look like ${age} years old! 😲\n\nHow old do you look? ${window.location.href}`);
+            document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${shareText}`;
+            document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${shareText}`;
+            document.getElementById('shareTelegram').href = `https://t.me/share/url?text=${shareText}`;
+            
+            document.getElementById('inputCard').style.display = 'none';
+            document.getElementById('resultCard').style.display = 'block';
+        }
+        
+        function restart() {
+            document.getElementById('resultCard').style.display = 'none';
+            document.getElementById('inputCard').style.display = 'block';
+            document.getElementById('nameInput').value = '';
+        }
+    </script>
+</body>
+</html>

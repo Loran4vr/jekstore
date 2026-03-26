@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Video Recorder</title>
+    <style>
+        body { font-family: system-ui; background: #1a1a2e; color: white; padding: 20px; text-align: center; }
+        #video { width: 100%; max-width: 400px; background: #000; margin: 20px auto; display: block; }
+        button { padding: 15px 30px; font-size: 18px; margin: 10px; cursor: pointer; border-radius: 8px; border: none; }
+        #startBtn { background: #ff4757; color: white; }
+        #stopBtn { background: #2ed573; color: white; }
+        #downloadBtn { background: #ffa502; color: white; display: none; }
+        canvas { display: none; }
+        .instructions { background: #2f3542; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>🎬 Simple Video Recorder</h1>
+    
+    <div class="instructions">
+        <h3>How to use:</h3>
+        <ol>
+            <li>Open this page on your phone</li>
+            <li>Grant camera permission</li>
+            <li>Click "Start Recording"</li>
+            <li>Show the age-guess.html page or say your message</li>
+            <li>Click "Stop Recording"</li>
+            <li>Download and upload to YouTube!</li>
+        </ol>
+    </div>
+    
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas"></canvas>
+    
+    <div>
+        <button id="startBtn" onclick="startRecording()">🔴 Start Recording</button>
+        <button id="stopBtn" onclick="stopRecording()" disabled>⏹ Stop</button>
+        <button id="downloadBtn" onclick="downloadVideo()">💾 Download Video</button>
+    </div>
+    
+    <script>
+        let mediaRecorder;
+        let chunks = [];
+        
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
+                
+                document.getElementById('video').srcObject = stream;
+                
+                mediaRecorder = new MediaRecorder(stream);
+                chunks = [];
+                
+                mediaRecorder.ondataavailable = e => chunks.push(e.data);
+                
+                mediaRecorder.onstop = () => {
+                    document.getElementById('downloadBtn').style.display = 'inline-block';
+                };
+                
+                mediaRecorder.start();
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = false;
+                
+            } catch(e) {
+                alert('Error: ' + e.message);
+            }
+        }
+        
+        function stopRecording() {
+            mediaRecorder.stop();
+            mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+        }
+        
+        function downloadVideo() {
+            const blob = new Blob(chunks, { type: 'video/mp4' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'video.mp4';
+            a.click();
+        }
+    </script>
+</body>
+</html>

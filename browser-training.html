@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🤖 Browser AI Training</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 { color: #00d4ff; }
+        .stats {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        .progress {
+            background: #0f3460;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            background: #00d4ff;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Training in Your Browser!</h1>
+    <p>This page trains a neural network in the background while you browse.</p>
+    
+    <div class="stats">
+        <h3>Training Stats</h3>
+        <p>Iterations: <span id="iterations">0</span></p>
+        <p>Training Speed: <span id="speed">0</span> iterations/sec</p>
+        <div class="progress">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        <p id="status">Starting...</p>
+    </div>
+
+    <script>
+        // ===========================================
+        // NEURAL NETWORK TRAINING IN BROWSER
+        // ===========================================
+        
+        class SimpleAI {
+            constructor() {
+                this.vocabSize = 100;
+                this.embedDim = 32;
+                this.hiddenDim = 64;
+                this.iteration = 0;
+                this.lastTime = Date.now();
+                
+                this.init();
+            }
+            
+            init() {
+                // Initialize weights
+                this.weights = [];
+                for (let i = 0; i < this.vocabSize; i++) {
+                    this.weights[i] = [];
+                    for (let j = 0; j < this.hiddenDim; j++) {
+                        this.weights[i][j] = (Math.random() - 0.5) * 0.2;
+                    }
+                }
+                
+                this.biases = new Array(this.hiddenDim).fill(0);
+                this.outputW = [];
+                for (let i = 0; i < this.hiddenDim; i++) {
+                    this.outputW[i] = [];
+                    for (let j = 0; j < this.vocabSize; j++) {
+                        this.outputW[i][j] = (Math.random() - 0.5) * 0.2;
+                    }
+                }
+                this.outputB = new Array(this.vocabSize).fill(0);
+            }
+            
+            forward(tokens) {
+                if (tokens.length === 0) return new Array(this.hiddenDim).fill(0);
+                
+                // Average embeddings
+                let emb = new Array(this.embedDim).fill(0);
+                for (let t of tokens) {
+                    if (t < this.vocabSize && this.weights[t]) {
+                        for (let i = 0; i < this.embedDim; i++) {
+                            emb[i] += (this.weights[t][i] || 0) / this.embedDim * 0.1;
+                        }
+                    }
+                }
+                
+                // Hidden layer (ReLU)
+                let h = [];
+                for (let j = 0; j < this.hiddenDim; j++) {
+                    let sum = this.biases[j];
+                    for (let i = 0; i < this.embedDim; i++) {
+                        sum += emb[i] * (this.weights[Math.floor(i/3)] ? this.weights[Math.floor(i/3)][j] : 0);
+                    }
+                    h.push(Math.max(0, sum));
+                }
+                
+                return h;
+            }
+            
+            train(inputToken, targetToken, lr = 0.01) {
+                // Forward
+                let h = this.forward([inputToken]);
+                
+                // Simple update (very approximated)
+                for (let i = 0; i < this.hiddenDim; i++) {
+                    for (let j = 0; j < this.vocabSize; j++) {
+                        let isTarget = (j === targetToken);
+                        let error = isTarget ? lr : -lr * 0.01;
+                        this.outputW[i][j] = (this.outputW[i][j] || 0) + error * h[i] * 0.01;
+                    }
+                }
+                
+                this.iteration++;
+            }
+            
+            getState() {
+                let now = Date.now();
+                let elapsed = (now - this.lastTime) / 1000;
+                let speed = elapsed > 0 ? Math.floor(this.iteration / elapsed) : 0;
+                
+                return {
+                    iterations: this.iteration,
+                    speed: speed
+                };
+            }
+        }
+        
+        // Start training!
+        const ai = new SimpleAI();
+        
+        function train() {
+            // Generate random training example
+            let input = Math.floor(Math.random() * ai.vocabSize);
+            let target = Math.floor(Math.random() * ai.vocabSize);
+            
+            ai.train(input, target, 0.1);
+            
+            // Update UI
+            let state = ai.getState();
+            document.getElementById('iterations').textContent = state.iterations;
+            document.getElementById('speed').textContent = state.speed;
+            
+            // Progress bar (cycles every 1000)
+            let progress = (state.iterations % 1000) / 10;
+            document.getElementById('progress').style.width = progress + '%';
+            
+            document.getElementById('status').textContent = 
+                `Training... ${state.speed} it/s`;
+        }
+        
+        // Train rapidly!
+        setInterval(train, 1);  // Run every millisecond!
+        
+        // Also train on page visible
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                setInterval(train, 1);
+            }
+        });
+        
+        console.log("🤖 AI training started in background!");
+    </script>
+</body>
+</html>
