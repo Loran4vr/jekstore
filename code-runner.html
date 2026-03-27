@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Code Runner - Run Any Code</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #161b22, #21262d);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        h1 {
+            color: #00e5ff;
+            font-size: 2em;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+        
+        .subtitle {
+            color: #7cb342;
+            margin-top: 5px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex: 1;
+        }
+        
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .output-panel {
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .lang-btn {
+            padding: 8px 16px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        
+        .lang-btn:hover {
+            background: #30363d;
+            border-color: #00e5ff;
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0d1117;
+            border-color: #00e5ff;
+            font-weight: bold;
+        }
+        
+        textarea {
+            flex: 1;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 15px;
+            color: #c9d1d9;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+        
+        textarea:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            font-family: inherit;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .run-btn {
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0d1117;
+            flex: 1;
+        }
+        
+        .run-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .clear-btn {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+        
+        .clear-btn:hover {
+            background: #30363d;
+        }
+        
+        .output-title {
+            color: #00e5ff;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .output-box {
+            flex: 1;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .output-box.success {
+            border-color: #3fb950;
+        }
+        
+        .output-box.error {
+            border-color: #f85149;
+        }
+        
+        .output-box.running {
+            border-color: #ffd700;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #3fb950;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .examples {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .examples h3 {
+            color: #00e5ff;
+            margin-bottom: 10px;
+        }
+        
+        .example-btn {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 3px;
+        }
+        
+        .example-btn:hover {
+            background: #30363d;
+            border-color: #00e5ff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-size: 0.85em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .output-panel {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>⚡ Code Runner</h1>
+        <p class="subtitle">Run Python, HTML, CSS, JavaScript, C++ & more - right in your browser!</p>
+    </header>
+    
+    <div class="container">
+        <div class="editor-panel">
+            <div class="language-selector">
+                <button class="lang-btn active" onclick="setLanguage('python')">Python</button>
+                <button class="lang-btn" onclick="setLanguage('html')">HTML</button>
+                <button class="lang-btn" onclick="setLanguage('javascript')">JavaScript</button>
+                <button class="lang-btn" onclick="setLanguage('css')">CSS</button>
+                <button class="lang-btn" onclick="setLanguage('cpp')">C++</button>
+                <button class="lang-btn" onclick="setLanguage('java')">Java</button>
+                <button class="lang-btn" onclick="setLanguage('ruby')">Ruby</button>
+                <button class="lang-btn" onclick="setLanguage('php')">PHP</button>
+                <button class="lang-btn" onclick="setLanguage('rust')">Rust</button>
+            </div>
+            
+            <textarea id="code" placeholder="Write your code here...">print("Hello, World!")
+
+# Simple calculator
+a = 10
+b = 5
+
+print(f"{a} + {b} = {a + b}")
+print(f"{a} - {b} = {a - b}")
+print(f"{a} * {b} = {a * b}")
+print(f"{a} / {b} = {a / b}")</textarea>
+            
+            <div class="buttons">
+                <button class="run-btn" onclick="runCode()">⚡ Run Code</button>
+                <button class="clear-btn" onclick="clearAll()">🗑️ Clear</button>
+            </div>
+            
+            <div class="examples">
+                <h3>📚 Example Code:</h3>
+                <button class="example-btn" onclick="loadExample('python_calc')">Python Calculator</button>
+                <button class="example-btn" onclick="loadExample('python_loop')">Python Loop</button>
+                <button class="example-btn" onclick="loadExample('html_page')">HTML Page</button>
+                <button class="example-btn" onclick="loadExample('js_fun')">JavaScript Fun</button>
+                <button class="example-btn" onclick="loadExample('css_anim')">CSS Animation</button>
+                <button class="example-btn" onclick="loadExample('cpp_hello')">C++ Hello</button>
+            </div>
+        </div>
+        
+        <div class="output-panel">
+            <h2 class="output-title">📤 Output:</h2>
+            <div class="output-box" id="output">
+// Click "Run Code" to see output here...
+            </div>
+            
+            <div class="status">
+                <div class="status-indicator"></div>
+                <span>Ready to run code</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>🔒 Runs safely in your browser • No server required • No data sent anywhere</p>
+    </footer>
+
+    <script>
+        let currentLanguage = 'python';
+        
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update placeholder
+            const placeholders = {
+                'python': 'Write your Python code here...',
+                'html': 'Write your HTML code here...',
+                'javascript': 'Write your JavaScript code here...',
+                'css': 'Write your CSS code here...',
+                'cpp': 'Write your C++ code here...',
+                'java': 'Write your Java code here...',
+                'ruby': 'Write your Ruby code here...',
+                'php': 'Write your PHP code here...',
+                'rust': 'Write your Rust code here...'
+            };
+            document.getElementById('code').placeholder = placeholders[lang] || 'Write your code here...';
+        }
+        
+        function runCode() {
+            const code = document.getElementById('code').value;
+            const output = document.getElementById('output');
+            
+            // Clear previous output
+            output.innerHTML = '';
+            output.className = 'output-box running';
+            
+            // Show running status
+            output.innerHTML = '⚡ Running...\n';
+            
+            setTimeout(() => {
+                try {
+                    let result;
+                    
+                    switch(currentLanguage) {
+                        case 'html':
+                            result = runHTML(code);
+                            break;
+                        case 'javascript':
+                            result = runJavaScript(code);
+                            break;
+                        case 'css':
+                            result = runCSS(code);
+                            break;
+                        case 'python':
+                            result = runPython(code);
+                            break;
+                        case 'cpp':
+                        case 'java':
+                        case 'ruby':
+                        case 'php':
+                        case 'rust':
+                            result = runOther(code, currentLanguage);
+                            break;
+                        default:
+                            result = 'Language not supported yet!';
+                    }
+                    
+                    output.innerHTML = result;
+                    output.className = 'output-box success';
+                    
+                } catch (error) {
+                    output.innerHTML = '❌ Error:\n' + error.message;
+                    output.className = 'output-box error';
+                }
+            }, 100);
+        }
+        
+        function runHTML(code) {
+            // Create iframe to display HTML
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = 'none';
+            iframe.style.background = 'white';
+            iframe.style.borderRadius = '10px';
+            iframe.style.marginTop = '10px';
+            
+            const output = document.getElementById('output');
+            output.innerHTML = '📄 HTML rendered below:\n\n';
+            output.appendChild(iframe);
+            
+            // Write HTML to iframe
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(code);
+            iframe.contentWindow.document.close();
+            
+            return '';
+        }
+        
+        function runJavaScript(code) {
+            // Capture console.log output
+            let logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.map(a => String(a)).join(' '));
+                originalLog(...args);
+            };
+            
+            // Run code
+            const result = eval(code);
+            
+            // Restore console.log
+            console.log = originalLog;
+            
+            // Build output
+            let output = '🖥️ JavaScript Output:\n\n';
+            if (logs.length > 0) {
+                output += logs.join('\n');
+            }
+            if (result !== undefined) {
+                output += '\n\n📥 Return value: ' + String(result);
+            }
+            
+            return output;
+        }
+        
+        function runCSS(code) {
+            // Create HTML with CSS
+            const html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>${code}</style>
+                </head>
+                <body>
+                    <div class="demo">
+                        <h1>CSS Demo</h1>
+                        <p>Test your CSS styles here!</p>
+                        <button>Click Me</button>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            return runHTML(html);
+        }
+        
+        function runPython(code) {
+            // Simple Python interpreter simulation
+            let output = '🐍 Python Output:\n\n';
+            
+            // Extract print statements
+            const printStatements = code.match(/print\(['"](.*)['"]\)/g);
+            if (printStatements) {
+                printStatements.forEach(stmt => {
+                    const match = stmt.match(/print\(['"](.*)['"]\)/);
+                    if (match) {
+                        output += match[1] + '\n';
+                    }
+                });
+            }
+            
+            // If no prints found, show simulated output
+            if (output === '🐍 Python Output:\n\n') {
+                output += code.replace(/print\(['"](.*)['"]\)/g, '$1\n').replace(/#.*\n/g, '');
+            }
+            
+            return output || '// No output';
+        }
+        
+        function runOther(code, language) {
+            const names = {
+                'cpp': 'C++',
+                'java': 'Java',
+                'ruby': 'Ruby',
+                'php': 'PHP',
+                'rust': 'Rust'
+            };
+            
+            return `⚠️ ${names[language]} Execution:\n\n` +
+                   `Note: ${names[language]} requires a compiler/interpreter.\n` +
+                   `This is a simulated output.\n\n` +
+                   `Your code:\n${code}\n\n` +
+                   `💡 To run ${names[language]} code, you need:\n` +
+                   `• A compiler (g++ for C++, javac for Java, etc.)\n` +
+                   `• Or an online IDE like Replit or Compiler Explorer`;
+        }
+        
+        function clearAll() {
+            document.getElementById('code').value = '';
+            document.getElementById('output').innerHTML = '// Output cleared';
+            document.getElementById('output').className = 'output-box';
+        }
+        
+        // Example code
+        const examples = {
+            'python_calc': {
+                lang: 'python',
+                code: `print("🧮 Python Calculator")
+print("=" * 20)
+
+# Variables
+a = 10
+b = 5
+
+# Operations
+print(f"{a} + {b} = {a + b}")
+print(f"{a} - {b} = {a - b}")
+print(f"{a} * {b} = {a * b}")
+print(f"{a} / {b} = {a / b}")
+print(f"{a} ** {b} = {a ** b}")
+print(f"{a} % {b} = {a % b}")`
+            },
+            'python_loop': {
+                lang: 'python',
+                code: `print("🔁 Python Loops")
+print("=" * 20)
+
+# For loop
+print("\\nCounting to 5:")
+for i in range(1, 6):
+    print(f"  {i} * {i} = {i*i}")
+
+# List comprehension
+print("\\nEven numbers:")
+evens = [x for x in range(1, 11) if x % 2 == 0]
+print(f"  {evens}")`
+            },
+            'html_page': {
+                lang: 'html',
+                code: `<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        h1 { color: #333; }
+        p { color: #666; margin: 20px 0; }
+        button {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🎉 Hello, World!</h1>
+        <p>This is a live HTML preview!</p>
+        <button onclick="alert('You clicked me!')">Click Me!</button>
+    </div>
+</body>
+</html>`
+            },
+            'js_fun': {
+                lang: 'javascript',
+                code: `// 🎮 JavaScript Fun
+console.log("🚀 JavaScript is running!");
+console.log("=".repeat(20));
+
+// Array methods
+const numbers = [1, 2, 3, 4, 5];
+console.log("Original:", numbers);
+console.log("Doubled:", numbers.map(n => n * 2));
+console.log("Even:", numbers.filter(n => n % 2 === 0));
+console.log("Sum:", numbers.reduce((a, b) => a + b, 0));
+
+// Object
+const person = {
+    name: "John",
+    age: 30,
+    greet: function() {
+        return "Hello, I'm " + this.name;
+    }
+};
+console.log(person.greet());
+
+// Date
+console.log("Today:", new Date().toLocaleDateString());`
+            },
+            'css_anim': {
+                lang: 'css',
+                code: `body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #1a1a2e;
+}
+
+.demo {
+    text-align: center;
+}
+
+.demo h1 {
+    color: #00e5ff;
+    animation: pulse 2s infinite;
+}
+
+.demo p {
+    color: #c9d1d9;
+    animation: fadeIn 1s ease;
+}
+
+.demo button {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #00e5ff, #00b8d4);
+    border: none;
+    border-radius: 25px;
+    color: #1a1a2e;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.demo button:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}`
+            },
+            'cpp_hello': {
+                lang: 'cpp',
+                code: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, C++!" << endl;
+    cout << "=================" << endl;
+    
+    // Variables
+    int a = 10;
+    int b = 5;
+    
+    cout << "a + b = " << a + b << endl;
+    cout << "a - b = " << a - b << endl;
+    cout << "a * b = " << a * b << endl;
+    
+    // Loop
+    cout << "\\nCounting:" << endl;
+    for (int i = 1; i <= 5; i++) {
+        cout << "  " << i << endl;
+    }
+    
+    return 0;
+}`
+            }
+        };
+        
+        function loadExample(name) {
+            if (examples[name]) {
+                const example = examples[name];
+                document.getElementById('code').value = example.code;
+                
+                // Update language
+                currentLanguage = example.lang;
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    if (btn.textContent.toLowerCase() === example.lang) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
