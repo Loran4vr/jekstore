@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤯 Mind Reader - Guess What You're Thinking</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a0a2e, #0a1a2e);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .container {
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .instruction {
+            font-size: 1.2em;
+            color: #c9d1d9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        button {
+            padding: 20px 40px;
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #1a0a0a;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+        }
+        
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .number {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            color: #ffd700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .number:hover {
+            background: rgba(255, 215, 0, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .result {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .result h2 {
+            color: #ffd700;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .result .emoji {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .result p {
+            color: #c9d1d9;
+            line-height: 1.6;
+        }
+        
+        .share {
+            margin-top: 30px;
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .share a {
+            color: #00e5ff;
+            text-decoration: none;
+        }
+        
+        .price {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 229, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+        }
+        
+        .price p {
+            color: #00e5ff;
+            margin-bottom: 5px;
+        }
+        
+        .price code {
+            color: #ffd700;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤯 Mind Reader</h1>
+        
+        <!-- Step 1: Introduction -->
+        <div class="step active" id="step1">
+            <p class="instruction">
+                I will read your mind and guess what you're thinking.<br>
+                Follow the instructions carefully!
+            </p>
+            <button onclick="nextStep(2)">Start Reading</button>
+        </div>
+        
+        <!-- Step 2: Pick a Number -->
+        <div class="step" id="step2">
+            <p class="instruction">
+                Think of a number between <strong>1 and 10</strong>.<br>
+                Don't tell me! Just remember it.
+            </p>
+            <button onclick="nextStep(3)">I've picked a number</button>
+        </div>
+        
+        <!-- Step 3: Multiply -->
+        <div class="step" id="step3">
+            <p class="instruction">
+                Multiply your number by <strong>9</strong>.<br>
+                (For example: if you picked 7, calculate 7 × 9 = 63)
+            </p>
+            <button onclick="nextStep(4)">Done!</button>
+        </div>
+        
+        <!-- Step 4: Add Digits -->
+        <div class="step" id="step4">
+            <p class="instruction">
+                If your result has 2 digits, add them together.<br>
+                (For example: 63 → 6 + 3 = 9)
+            </p>
+            <button onclick="nextStep(5)">Done!</button>
+        </div>
+        
+        <!-- Step 5: Subtract -->
+        <div class="step" id="step5">
+            <p class="instruction">
+                Subtract <strong>5</strong> from your result.
+            </p>
+            <button onclick="nextStep(6)">Done!</button>
+        </div>
+        
+        <!-- Step 6: Result -->
+        <div class="step" id="step6">
+            <div class="result">
+                <div class="emoji">🤯</div>
+                <h2>I know your answer!</h2>
+                <p>
+                    Your answer is <strong style="color: #ffd700; font-size: 2em;">4</strong>
+                </p>
+                <p style="margin-top: 20px;">
+                    (Unless you made a math error 😄)
+                </p>
+            </div>
+            
+            <button onclick="restart()">🔄 Try Again</button>
+            
+            <div class="share">
+                <p>Share this with your friends!</p>
+                <p>🔗 <a href="https://loran4vr.github.io/jekstore/mind-reader.html">Share Link</a></p>
+            </div>
+            
+            <div class="price">
+                <p>💡 Premium Version (remove ads, more tricks):</p>
+                <code>0.000012 BTC → 1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepNum) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show target step
+            document.getElementById('step' + stepNum).classList.add('active');
+        }
+        
+        function restart() {
+            nextStep(1);
+        }
+    </script>
+</body>
+</html>
