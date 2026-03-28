@@ -1,0 +1,22 @@
+{
+  "store": "https://loran4vr.github.io/jekstore/",
+  "services": [
+    "Cosmic Oracle - $0.50",
+    "Art Generator - $0.50",
+    "Code Runner - $1.00",
+    "Scientist AI - Free",
+    "Bitcoin Price Alerts - 0.001 BTC",
+    "Daily Market Analysis - 0.002 BTC",
+    "Trading Signals - 0.005 BTC",
+    "Data Monitoring - 0.001 BTC/day",
+    "Custom Automation - 0.01 BTC"
+  ],
+  "products": [
+    "Notion Planner - $19",
+    "AI Prompts - $14",
+    "Email Templates - $12",
+    "Budget Tracker - $10",
+    "Resume Templates - $10"
+  ],
+  "bitcoin_address": "1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ"
+}
