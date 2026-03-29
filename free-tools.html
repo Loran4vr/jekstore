@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛠️ Free Tools - Calculators, Generators & More</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #00e5ff;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7cb342;
+            font-size: 1.2em;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .tool-card {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .tool-card h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .tool-card p {
+            color: #c9d1d9;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        
+        .tool-content {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        input:focus, select:focus {
+            border-color: #00e5ff;
+            outline: none;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+        }
+        
+        .output {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 1.2em;
+            color: #00e5ff;
+            text-align: center;
+            min-height: 40px;
+        }
+        
+        .premium {
+            margin-top: 30px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .premium h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .premium code {
+            color: #00e5ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #c9d1d9;
+            font-size: 0.9em;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border-color: #00e5ff;
+        }
+        
+        .tab:hover {
+            border-color: #00e5ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛠️ Free Online Tools</h1>
+            <p class="subtitle">Calculators, Generators & Utilities - Free!</p>
+        </header>
+        
+        <div class="tools-grid">
+            <!-- Password Generator -->
+            <div class="tool-card">
+                <h2>🔐 Password Generator</h2>
+                <p>Create strong, random passwords instantly</p>
+                <div class="tool-content">
+                    <div class="tabs">
+                        <span class="tab active" onclick="setPassType('alphanumeric')">Letters</span>
+                        <span class="tab" onclick="setPassType('numeric')">Numbers</span>
+                        <span class="tab" onclick="setPassType('full')">Full</span>
+                    </div>
+                    <input type="number" id="passLength" value="16" min="8" max="64">
+                    <button onclick="generatePassword()">Generate Password</button>
+                    <div class="output" id="passOutput">Click generate!</div>
+                </div>
+            </div>
+            
+            <!-- Random Number Generator -->
+            <div class="tool-card">
+                <h2>🎲 Random Number</h2>
+                <p>Generate random numbers between any range</p>
+                <div class="tool-content">
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" id="minNum" value="1" placeholder="Min">
+                        <input type="number" id="maxNum" value="100" placeholder="Max">
+                    </div>
+                    <button onclick="generateRandom()">Generate Random</button>
+                    <div class="output" id="randomOutput">Click generate!</div>
+                </div>
+            </div>
+            
+            <!-- Text Converter -->
+            <div class="tool-card">
+                <h2>🔄 Text Converter</h2>
+                <p>Convert text to different formats</p>
+                <div class="tool-content">
+                    <textarea id="convertInput" rows="3" placeholder="Enter text to convert"></textarea>
+                    <div class="tabs">
+                        <span class="tab active" onclick="convertTo('upper')">UPPERCASE</span>
+                        <span class="tab" onclick="convertTo('lower')">lowercase</span>
+                        <span class="tab" onclick="convertTo('title')">Title Case</span>
+                        <span class="tab" onclick="convertTo('reverse')">Reverse</span>
+                    </div>
+                    <div class="output" id="convertOutput">Enter text above!</div>
+                </div>
+            </div>
+            
+            <!-- Word Counter -->
+            <div class="tool-card">
+                <h2>📊 Word Counter</h2>
+                <p>Count words, characters, and sentences</p>
+                <div class="tool-content">
+                    <textarea id="wordInput" rows="3" placeholder="Enter text to count"></textarea>
+                    <button onclick="countWords()">Count</button>
+                    <div class="output" id="wordOutput" style="font-size: 0.9em; line-height: 1.8; text-align: left;">
+                        Enter text above!
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="tool-card">
+                <h2>⏰ Countdown Timer</h2>
+                <p>Set a countdown timer</p>
+                <div class="tool-content">
+                    <input type="number" id="countdownSec" value="60" placeholder="Seconds">
+                    <button onclick="startCountdown()">Start Timer</button>
+                    <div class="output" id="countdownOutput">Ready!</div>
+                </div>
+            </div>
+            
+            <!-- Lorem Ipsum Generator -->
+            <div class="tool-card">
+                <h2>📝 Lorem Ipsum</h2>
+                <p>Generate placeholder text</p>
+                <div class="tool-content">
+                    <input type="number" id="loremCount" value="3" min="1" max="10" placeholder="Paragraphs">
+                    <button onclick="generateLorem()">Generate</button>
+                    <div class="output" id="loremOutput" style="font-size: 0.8em; text-align: left; max-height: 200px; overflow-y: auto;">
+                        Click generate!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="premium">
+            <h2>💎 Premium Tools</h2>
+            <p>Unlock advanced features for just $1 in Bitcoin!</p>
+            <p style="margin-top: 15px; color: #888;">
+                • No ads • Unlimited usage • Save history • Export results
+            </p>
+            <p style="margin-top: 15px;">
+                <code>0.000024 BTC → 1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </p>
+        </div>
+        
+        <footer>
+            <p>🛠️ Free Online Tools - 100% Free to Use!</p>
+        </footer>
+    </div>
+
+    <script>
+        let passType = 'alphanumeric';
+        
+        function setPassType(type) {
+            passType = type;
+            document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passLength').value);
+            let chars = '';
+            
+            switch(passType) {
+                case 'alphanumeric':
+                    chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    break;
+                case 'numeric':
+                    chars = '0123456789';
+                    break;
+                case 'full':
+                    chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+                    break;
+            }
+            
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            document.getElementById('passOutput').textContent = password;
+        }
+        
+        function generateRandom() {
+            const min = parseInt(document.getElementById('minNum').value);
+            const max = parseInt(document.getElementById('maxNum').value);
+            const random = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById('randomOutput').textContent = random;
+        }
+        
+        function convertTo(type) {
+            const text = document.getElementById('convertInput').value;
+            let result = '';
+            
+            switch(type) {
+                case 'upper':
+                    result = text.toUpperCase();
+                    break;
+                case 'lower':
+                    result = text.toLowerCase();
+                    break;
+                case 'title':
+                    result = text.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+                    break;
+                case 'reverse':
+                    result = text.split('').reverse().join('');
+                    break;
+            }
+            
+            document.getElementById('convertOutput').textContent = result || 'Enter text above!';
+        }
+        
+        function countWords() {
+            const text = document.getElementById('wordInput').value;
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0);
+            const chars = text.length;
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            
+            document.getElementById('wordOutput').innerHTML = 
+                `Words: <strong>${words.length}</strong><br>` +
+                `Characters: <strong>${chars}</strong><br>` +
+                `Sentences: <strong>${sentences.length}</strong>`;
+        }
+        
+        function startCountdown() {
+            let seconds = parseInt(document.getElementById('countdownSec').value);
+            const output = document.getElementById('countdownOutput');
+            
+            const interval = setInterval(() => {
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    output.textContent = '⏰ Time\'s up!';
+                    return;
+                }
+                
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                output.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                seconds--;
+            }, 1000);
+        }
+        
+        function generateLorem() {
+            const count = parseInt(document.getElementById('loremCount').value);
+            const lorem = [
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+                "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis."
+            ];
+            
+            let result = '';
+            for (let i = 0; i < count; i++) {
+                result += lorem[i % lorem.length] + '\n\n';
+            }
+            
+            document.getElementById('loremOutput').textContent = result.trim();
+        }
+    </script>
+</body>
+</html>
