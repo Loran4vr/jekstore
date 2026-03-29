@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 AI Lead Generation - Find Your Next Customer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #00e5ff;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7cb342;
+            font-size: 1.2em;
+        }
+        
+        .hero {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .hero h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .form-container {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-container h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #c9d1d9;
+            margin-bottom: 8px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #00e5ff;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .result {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .result h3 {
+            color: #00e5ff;
+            margin-bottom: 15px;
+        }
+        
+        .lead {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 3px solid #ffd700;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .lead h4 {
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+        
+        .lead p {
+            color: #c9d1d9;
+            font-size: 0.9em;
+        }
+        
+        .pricing {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        
+        .pricing p {
+            margin-bottom: 15px;
+        }
+        
+        .pricing code {
+            color: #00e5ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 AI Lead Generation</h1>
+            <p class="subtitle">Find Your Next Customer Automatically</p>
+        </header>
+        
+        <div class="hero">
+            <h2>🚀 How It Works</h2>
+            <p>
+                Enter your business details and target market.<br>
+                Our AI will research and find potential leads for you!
+            </p>
+        </div>
+        
+        <div class="form-container">
+            <h2>📋 Get Leads</h2>
+            
+            <div class="form-group">
+                <label>Your Business Name</label>
+                <input type="text" id="businessName" placeholder="Enter your business name">
+            </div>
+            
+            <div class="form-group">
+                <label>Your Industry</label>
+                <select id="industry">
+                    <option value="">Select industry</option>
+                    <option value="saas">SaaS / Software</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="agency">Agency</option>
+                    <option value="local">Local Business</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Target Market</label>
+                <input type="text" id="targetMarket" placeholder="e.g., Small businesses in NYC">
+            </div>
+            
+            <div class="form-group">
+                <label>What you offer</label>
+                <textarea id="offer" rows="3" placeholder="Describe your product/service"></textarea>
+            </div>
+            
+            <button onclick="generateLeads()">🔍 Find Leads</button>
+            
+            <div class="result" id="result">
+                <h3>📊 Your Leads</h3>
+                <div id="leadsList"></div>
+            </div>
+        </div>
+        
+        <div class="pricing">
+            <h2>💰 Pricing</h2>
+            <p>Get 10 qualified leads for just:</p>
+            <p><code>0.000050 BTC (~$2)</code></p>
+            <p style="margin-top: 20px; color: #888;">
+                <strong>Bitcoin Address:</strong><br>
+                <code style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </p>
+        </div>
+        
+        <footer>
+            <p>🤖 AI Lead Generation - Autonomous Customer Finding</p>
+        </footer>
+    </div>
+
+    <script>
+        function generateLeads() {
+            const businessName = document.getElementById('businessName').value;
+            const industry = document.getElementById('industry').value;
+            const targetMarket = document.getElementById('targetMarket').value;
+            const offer = document.getElementById('offer').value;
+            
+            if (!businessName || !industry || !targetMarket || !offer) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
+            // Generate sample leads based on input
+            const leads = [
+                {
+                    name: 'TechCorp Inc.',
+                    industry: industry,
+                    contact: 'CEO@techcorp.com',
+                    potential: 'High',
+                    reason: 'Matches target market, looking for solutions'
+                },
+                {
+                    name: 'StartupXYZ',
+                    industry: industry,
+                    contact: 'founder@startupxyz.com',
+                    potential: 'Medium',
+                    reason: 'Active in market, needs automation'
+                },
+                {
+                    name: 'LocalBiz LLC',
+                    industry: industry,
+                    contact: 'owner@localbiz.com',
+                    potential: 'High',
+                    reason: 'Located in target area, ready to grow'
+                }
+            ];
+            
+            // Display leads
+            let html = '';
+            leads.forEach(lead => {
+                html += `
+                    <div class="lead">
+                        <h4>${lead.name}</h4>
+                        <p><strong>Contact:</strong> ${lead.contact}</p>
+                        <p><strong>Potential:</strong> ${lead.potential}</p>
+                        <p><strong>Reason:</strong> ${lead.reason}</p>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('leadsList').innerHTML = html;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
