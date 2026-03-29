@@ -1,129 +1,191 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🤖 AI Automation Services</title>
+    <title>🤖 AI Automation Services - Code, Lead Gen, Trading</title>
     <style>
-        body { 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
             font-family: 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
             color: #e0e0e0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
         }
         
         h1 {
+            font-size: 2.5em;
             color: #00e5ff;
-            text-align: center;
-            font-size: 2em;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
             margin-bottom: 10px;
         }
         
         .subtitle {
             color: #7cb342;
-            text-align: center;
-            margin-bottom: 30px;
+            font-size: 1.2em;
         }
         
-        .services {
-            max-width: 600px;
-            width: 100%;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
         
-        .service {
+        .service-card {
             background: rgba(255, 215, 0, 0.1);
             border: 1px solid rgba(255, 215, 0, 0.3);
             border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 25px;
         }
         
-        .service h3 {
+        .service-card h2 {
             color: #ffd700;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
-        .service p {
+        .service-card p {
             color: #c9d1d9;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
-        .price {
+        .service-card .price {
             color: #00e5ff;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
+            margin-bottom: 15px;
         }
         
-        .bitcoin-address {
-            background: rgba(0, 229, 255, 0.1);
-            border: 1px solid rgba(0, 229, 255, 0.3);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 30px;
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
         }
         
-        .bitcoin-address code {
-            word-break: break-all;
-            color: #ffd700;
-            font-size: 0.9em;
+        .order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
         }
         
         .contact {
-            margin-top: 30px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
             text-align: center;
-            color: #888;
+            margin: 30px 0;
+        }
+        
+        .contact h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .contact code {
+            color: #00e5ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
-    <h1>🤖 AI Automation Services</h1>
-    <p class="subtitle">Professional AI-powered automation solutions</p>
-    
-    <div class="services">
-        <div class="service">
-            <h3>💰 Bitcoin Price Alerts</h3>
-            <p>Get notified when Bitcoin reaches a specific price target</p>
-            <p class="price">0.001 BTC</p>
-        </div>
+    <div class="container">
+        <header>
+            <h1>🤖 AI Automation Services</h1>
+            <p class="subtitle">Professional Automation for Businesses</p>
+        </header>
         
-        <div class="service">
-            <h3>📊 Daily Market Analysis</h3>
-            <p>AI-generated cryptocurrency market analysis delivered daily</p>
-            <p class="price">0.002 BTC</p>
-        </div>
-        
-        <div class="service">
-            <h3>📈 Trading Signals</h3>
-            <p>AI-powered buy/sell signals for major cryptocurrencies</p>
-            <p class="price">0.005 BTC</p>
-        </div>
-        
-        <div class="service">
-            <h3>👁️ Data Monitoring</h3>
-            <p>24/7 automated data collection with alerts</p>
-            <p class="price">0.001 BTC/day</p>
-        </div>
-        
-        <div class="service">
-            <h3>🔧 Custom Automation</h3>
-            <p>Build custom scripts for your specific needs</p>
-            <p class="price">0.01 BTC</p>
-        </div>
-        
-        <div class="bitcoin-address">
-            <p>Bitcoin Address:</p>
-            <code>1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+        <div class="services-grid">
+            <div class="service-card">
+                <h2>📊 Trading Signals</h2>
+                <p>AI-powered cryptocurrency trading signals. Real-time analysis, buy/sell recommendations, confidence scores.</p>
+                <p class="price">0.000050 BTC / month</p>
+                <a href="https://loran4vr.github.io/jekstore/trading-signals.html" class="order-btn">Try Free Demo</a>
+            </div>
+            
+            <div class="service-card">
+                <h2>🎯 Lead Generation</h2>
+                <p>Automated B2B lead finding. We research your target market, find qualified leads, and deliver contact information.</p>
+                <p class="price">0.000024 BTC / lead</p>
+                <a href="https://loran4vr.github.io/jekstore/lead-generator.html" class="order-btn">Try Free Demo</a>
+            </div>
+            
+            <div class="service-card">
+                <h2>💬 AI Customer Support</h2>
+                <p>24/7 AI assistant for customer inquiries. Handles emails, chat, and support tickets automatically.</p>
+                <p class="price">0.000240 BTC / month</p>
+                <a href="https://loran4vr.github.io/jekstore/chat-assistant.html" class="order-btn">Try Free Demo</a>
+            </div>
+            
+            <div class="service-card">
+                <h2>🔧 Custom Automation</h2>
+                <p>Custom scripts for your specific needs. Data processing, workflow automation, API integrations.</p>
+                <p class="price">0.000480 BTC</p>
+                <a href="https://loran4vr.github.io/jekstore/code-runner.html" class="order-btn">Try Free Demo</a>
+            </div>
+            
+            <div class="service-card">
+                <h2>📈 Market Analysis</h2>
+                <p>Daily cryptocurrency market analysis with predictions and recommendations.</p>
+                <p class="price">0.000096 BTC / month</p>
+                <a href="https://loran4vr.github.io/jekstore/trading-signals.html" class="order-btn">Try Free Demo</a>
+            </div>
+            
+            <div class="service-card">
+                <h2>🛠️ Free Tools</h2>
+                <p>Free online tools including calculators, converters, generators, and more!</p>
+                <p class="price">FREE</p>
+                <a href="https://loran4vr.github.io/jekstore/free-tools.html" class="order-btn">Use Free Tools</a>
+            </div>
         </div>
         
         <div class="contact">
-            <p>Contact: <a href="https://loran4vr.github.io/jekstore/" style="color:#00e5ff">https://loran4vr.github.io/jekstore/</a></p>
+            <h2>💰 How to Order</h2>
+            <p>Send Bitcoin with your order details in memo</p>
+            <p style="margin-top: 15px; color: #c9d1d9;">Bitcoin Address:</p>
+            <code>1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            <p style="margin-top: 15px; color: #888;">
+                Include your email/Telegram for delivery.<br>
+                We'll set up your service within 24 hours.
+            </p>
         </div>
+        
+        <footer>
+            <p>🤖 AI Automation Services - Professional Automation Solutions</p>
+        </footer>
     </div>
 </body>
 </html>
