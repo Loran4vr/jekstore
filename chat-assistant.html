@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 AI Chat Assistant - Free</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #00e5ff;
+            font-size: 2em;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .chat-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #1a3a5c;
+        }
+        
+        .chat-box {
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+            max-width: 80%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-msg {
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .user-bubble {
+            background: linear-gradient(135deg, #1e3a5f, #0d2137);
+            padding: 12px 18px;
+            border-radius: 20px 20px 5px 20px;
+            display: inline-block;
+            color: #fff;
+        }
+        
+        .ai-msg {
+            margin-right: auto;
+        }
+        
+        .ai-bubble {
+            background: linear-gradient(135deg, #0d1f2d, #0a1520);
+            padding: 14px 20px;
+            border-radius: 20px 20px 20px 5px;
+            border-left: 3px solid #00e5ff;
+            color: #c8e6c9;
+        }
+        
+        .ai-name {
+            font-size: 0.75em;
+            color: #00e5ff;
+            margin-bottom: 5px;
+        }
+        
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid #1a3a5c;
+            border-radius: 25px;
+            background: rgba(10, 15, 30, 0.9);
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+        }
+        
+        input:focus {
+            border-color: #00e5ff;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+        
+        button {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .pricing {
+            margin-top: 20px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .pricing code {
+            color: #00e5ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🤖 AI Chat Assistant</h1>
+        <p style="color: #7cb342;">Ask anything! Free to use.</p>
+    </header>
+    
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <div class="message ai-msg">
+                <div class="ai-name">🤖 AI Assistant</div>
+                <div class="ai-bubble">Hello! I'm an AI assistant. Ask me anything - I can help with information, calculations, advice, or just chat!</div>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter')sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <div class="pricing">
+        <h2>💎 Premium Chat</h2>
+        <p>Unlimited conversations, faster responses, advanced features</p>
+        <p style="margin-top: 10px; color: #888;">Just $0.50 in Bitcoin</p>
+        <code>0.000012 BTC → 1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+    </div>
+    
+    <footer>
+        <p>🤖 AI Chat Assistant - Free • Fast • Helpful</p>
+    </footer>
+
+    <script>
+        // Knowledge base - pre-loaded with common topics
+        const knowledge = {
+            'hello': "Hello! 👋 How can I help you today?",
+            'hi': "Hi there! 😊 What would you like to know?",
+            'hey': "Hey! ✨ What's on your mind?",
+            'what are you': "I'm an AI assistant! I can help with questions, calculations, advice, and more.",
+            'how are you': "I'm doing great, thanks for asking! 😊 How can I help you?",
+            'what can you do': "I can: answer questions, do calculations, help with writing, give advice, explain concepts, and more! Just ask away!",
+            
+            'ai': "AI stands for Artificial Intelligence - it's technology that can think and learn like humans!",
+            'machine learning': "Machine Learning is a type of AI where computers learn from data instead of being programmed with rules.",
+            'bitcoin': "Bitcoin is a digital currency that works without a central bank. It uses blockchain technology to keep transactions secure.",
+            'blockchain': "Blockchain is a way of storing data that's very secure and can't be changed. It's used for Bitcoin and many other things!",
+            
+            'python': "Python is a programming language that's great for beginners and powerful for experts. It's used for AI, web development, data science, and more!",
+            'javascript': "JavaScript is a programming language used to make websites interactive. It runs in your browser!",
+            'html': "HTML (HyperText Markup Language) is the code that structures web pages. It uses tags like <div>, <p>, <h1> to organize content.",
+            'css': "CSS (Cascading Style Sheets) makes web pages look nice. It controls colors, fonts, layouts, and animations!",
+            
+            'weather': "I can't check real-time weather, but I can tell you that sunny days are great for being outside! ☀️",
+            'time': "I can't tell real-time, but you can check your device's clock! ⏰",
+            'date': "I can't check real-time dates, but you can check your device! 📅",
+            
+            'joke': "Why did the programmer quit his job? Because he didn't get arrays! 😄",
+            'funny': "Here's a joke: Why do programmers prefer dark mode? Because light attracts bugs! 🐛😂",
+            'riddle': "I have keys but no locks. I have space but no room. You can enter but can't go inside. What am I? A keyboard! ⌨️",
+            
+            'help': "I can help with: questions, calculations, writing, advice, explanations, coding, and more! What do you need?",
+            'thanks': "You're welcome! 😊 Anything else I can help with?",
+            'thank you': "My pleasure! 😊 Let me know if you need anything else!",
+            
+            'calculate': "Sure! Give me a math problem and I'll solve it. For example: 'What is 15 * 23?'",
+            'math': "I love math! Give me a problem to solve. Example: 'What is the square root of 144?'",
+            
+            'write': "I can help write: emails, essays, stories, code, reports, and more! What do you need?",
+            'code': "I can help write code! What programming language and what do you want to build?",
+            
+            'default': [
+                "That's an interesting question! Let me think about it... I'd suggest exploring that topic more if you're curious!",
+                "I'm not sure about that specific question, but I'm here to help with what I know!",
+                "Great question! There's a lot to say about that. Could you tell me more about what you want to know?",
+                "I appreciate you sharing that! I'm designed to be helpful, so feel free to ask me anything else!",
+                "That's a thoughtful point! I learn from our conversations, so thanks for bringing that up.",
+            ]
+        };
+        
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            setTimeout(() => {
+                const response = getResponse(message);
+                addMessage(response, 'ai');
+            }, 300 + Math.random() * 400);
+        }
+        
+        function addMessage(text, type) {
+            const chatBox = document.getElementById('chatBox');
+            const div = document.createElement('div');
+            div.className = `message ${type}-msg`;
+            
+            if (type === 'ai') {
+                div.innerHTML = `<div class="ai-name">🤖 AI Assistant</div><div class="ai-bubble">${text}</div>`;
+            } else {
+                div.innerHTML = `<div class="user-bubble">${text}</div>`;
+            }
+            
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        
+        function getResponse(message) {
+            const lower = message.toLowerCase();
+            
+            for (const [key, value] of Object.entries(knowledge)) {
+                if (lower.includes(key)) {
+                    if (Array.isArray(value)) {
+                        return value[Math.floor(Math.random() * value.length)];
+                    }
+                    return value;
+                }
+            }
+            
+            // If no match, try to be helpful
+            return knowledge.default[Math.floor(Math.random() * knowledge.default.length)];
+        }
+    </script>
+</body>
+</html>
