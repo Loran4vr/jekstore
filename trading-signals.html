@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📈 Trading Signals - Free Bitcoin Analysis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a3a);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #00e5ff;
+            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7cb342;
+            font-size: 1.2em;
+        }
+        
+        .signal-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .signal-box h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+        
+        .signal {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .buy { color: #3fb950; }
+        .sell { color: #f85149; }
+        .hold { color: #ffd700; }
+        
+        .price {
+            font-size: 1.5em;
+            color: #00e5ff;
+            margin-bottom: 15px;
+        }
+        
+        .confidence {
+            color: #7cb342;
+            margin-bottom: 20px;
+        }
+        
+        .refresh-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00e5ff, #00b8d4);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        
+        .history {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .history h2 {
+            color: #00e5ff;
+            margin-bottom: 15px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #1a3a5c;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .premium {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .premium h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        
+        .premium code {
+            color: #00e5ff;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📈 Trading Signals</h1>
+            <p class="subtitle">AI-Powered Bitcoin Analysis - Free!</p>
+        </header>
+        
+        <div class="signal-box">
+            <h2>📊 Current Signal</h2>
+            <div class="signal hold" id="signal">HOLD</div>
+            <div class="price" id="price">$0.00</div>
+            <div class="confidence" id="confidence">Confidence: 0%</div>
+            <button class="refresh-btn" onclick="refreshSignal()">🔄 Refresh Signal</button>
+        </div>
+        
+        <div class="history">
+            <h2>📜 Recent Signals</h2>
+            <div id="historyList">
+                <!-- Signals will be added here -->
+            </div>
+        </div>
+        
+        <div class="premium">
+            <h2>💎 Premium Signals</h2>
+            <p>Get real-time alerts, advanced analysis, and more!</p>
+            <p style="margin-top: 10px; color: #888;">• Email alerts • SMS notifications • Advanced charts • Portfolio tracking</p>
+            <p style="margin-top: 15px;">
+                <code>0.000050 BTC → 1BL4eV82zZ64Dp4cj3s9EgJ3ae8xPx5ZuJ</code>
+            </p>
+        </div>
+        
+        <footer>
+            <p>📈 Trading Signals - Free Bitcoin Analysis</p>
+            <p style="margin-top: 10px; color: #888;">⚠️ This is for educational purposes only. Always do your own research.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simulated price data
+        let currentPrice = 66508;
+        let signals = [
+            { time: '07:10', signal: 'HOLD', price: 66512 },
+            { time: '07:00', signal: 'HOLD', price: 66508 },
+            { time: '06:50', signal: 'HOLD', price: 66495 },
+            { time: '06:40', signal: 'HOLD', price: 66510 },
+            { time: '06:30', signal: 'HOLD', price: 66502 },
+        ];
+        
+        function refreshSignal() {
+            // Simulate price change
+            const change = (Math.random() - 0.5) * 100;
+            currentPrice += change;
+            
+            // Determine signal
+            let signal, signalClass;
+            if (change > 50) {
+                signal = 'BUY';
+                signalClass = 'buy';
+            } else if (change < -50) {
+                signal = 'SELL';
+                signalClass = 'sell';
+            } else {
+                signal = 'HOLD';
+                signalClass = 'hold';
+            }
+            
+            // Update display
+            document.getElementById('signal').textContent = signal;
+            document.getElementById('signal').className = `signal ${signalClass}`;
+            document.getElementById('price').textContent = `$${currentPrice.toFixed(2)}`;
+            document.getElementById('confidence').textContent = `Confidence: ${Math.round(50 + Math.abs(change) / 5)}%`;
+            
+            // Add to history
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            signals.unshift({ time: timeStr, signal: signal, price: currentPrice });
+            if (signals.length > 10) signals.pop();
+            
+            // Update history display
+            let historyHtml = '';
+            signals.forEach(s => {
+                historyHtml += `
+                    <div class="history-item">
+                        <span>${s.time}</span>
+                        <span class="${s.signal.toLowerCase()}">${s.signal}</span>
+                        <span>$${s.price.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('historyList').innerHTML = historyHtml;
+        }
+        
+        // Auto-refresh every 60 seconds
+        setInterval(refreshSignal, 60000);
+        
+        // Initial display
+        document.getElementById('price').textContent = `$${currentPrice.toFixed(2)}`;
+    </script>
+</body>
+</html>
